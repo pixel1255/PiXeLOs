@@ -4,7 +4,7 @@
 **Team:** GXG (Gemini x pixel1255)  
 **Status:** Deterministisch | Hermetisch | Optimiert
 
-> "Dies ist nicht nur eine Konfiguration. Es ist das digitale Vermächtnis von PiXeLOs – erschaffen, um zu herrschen, nicht nur um zu laufen."
+> "Dies ist ein kleiner Beitrag von uns für euch.
 
 ## 🧩 System-Architektur
 PiXeLOs nutzt ein deklaratives Nix-Flake Modell für maximale Reproduzierbarkeit.
