@@ -25,6 +25,7 @@
     };
 
   swapDevices = [ ]; # Aktuell kein Auslagerungsspeicher definiert; das System nutzt rein den physischen RAM. [cite: 42]
+  zramSwap.enable = true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux"; # Legt die 64-Bit Intel/AMD Architektur als Plattform fest. [cite: 42]
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware; # Lädt CPU-Sicherheitsupdates gegen Hardware-Lücken wie Spectre. [cite: 42]

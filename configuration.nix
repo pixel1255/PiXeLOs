@@ -69,7 +69,7 @@ LOGO
   # --- Aliase für Effizienz ---
   programs.bash.shellAliases = { # Abkürzungen für komplexe Abläufe[cite: 55].
     update = "sudo nixos-rebuild switch --flake /etc/nixos/#PiXeL1255"; # Gold-Update via Flake[cite: 57, 58].
-    cleanup = "sudo sync; echo 3 | sudo tee /proc/sys/vm/drop_caches && nix-collect-garbage -d"; # Tiefenreinigung[cite: 59, 60].
+    cleanup = "sudo sync; echo 3 | sudo tee /proc/sys/vm/drop_caches && nix-collect-garbage --delete-older-than 7d"; # Tiefenreinigung[cite: 59, 60].
     ll = "eza -l --icons"; # Detail-Liste[cite: 61].
     ls = "eza --icons"; # Schnelle Übersicht[cite: 62].
   };
