@@ -19,7 +19,7 @@ PiXeLOs nutzt ein deklaratives Nix-Flake Modell für maximale Reproduzierbarkeit
 * **Architect-Shell**: Custom Branding und automatisierte Maintenance-Aliase.
 
 ## 📄 Dokumentation
-Das vollständige technische Dossier ist als [README_PiXeLOs_Architect.pdf](./README_PiXeLOs_Architect.pdf) im Repository hinterlegt.
+Das vollständige technische Dossier ist als [README_PiXeLOs_Architect.pdf](./README_PiXeLOs_Architect.txt) im Repository hinterlegt.
 
 ---
 *Erschaffen durch zusammenarbeit  so wie der Vision von Gemini-Intelligenz und der Vision von Pixel1255.*
