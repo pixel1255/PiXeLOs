@@ -1,27 +1,24 @@
-{ ... }:
-
+## ==============================================================================## MODULES/SYSTEM/NIX-SETTINGS.NIX — NIX-DAEMON GLOBAL FLAGS & OPTIMIERUNGEN## Co-Created by Pixel1255 & Zwillingsstern-KI (GxG-Prozess)## ==============================================================================
+{ ... }: # Leerer Funktionskopf, da hier nur native Nix-Einstellungen vorgenommen werden
 {
-  nixpkgs.config.allowUnfree = true;
-
-  nix = {
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      auto-optimise-store = true;
-      trusted-users = [
-        "root"
-        "pixel1255"
-      ];
-    };
-
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 14d";
-    };
-  };
-
-  zramSwap.enable = true;
+nixpkgs.config.allowUnfree = true; # Erlaubt global das Installieren proprietärer Software (wie Intel-Firmware oder Obsidian)
+nix = { # Konfigurationsblock für den internen Nix-Paketmanager-Daemon
+settings = { # Feineinstellungen des Daemons
+experimental-features = [ # Aktiviert moderne Nix-Funktionen, die für dieses Repository zwingend erforderlich sind
+"nix-command" # Ermöglicht die Nutzung der neuen, modernen 'nix'-Subbefehle im Terminal
+"flakes" # Aktiviert die Flake-Infrastruktur inklusive Isolation und flake.lock-Pinning
+];
+auto-optimise-store = true; # Erkennt identische Dateien im Nix-Store und ersetzt sie automatisch durch Hardlinks (spart SSD-Platz)
+trusted-users = [ # Definiert Benutzerkonten, die erweiterte Befehle an den Nix-Daemon senden dürfen
+"root" # Der Systemadministrator hat volles Vertrauen
+"pixel1255" # Der primäre Hauptbenutzer darf Flakes und Builds ohne Einschränkung ausführen
+];
+};
+gc = { # Automatische Müllabfuhr (Garbage Collection) für den Nix-Store, um Altlasten loszuwerden
+automatic = true; # Schaltet die automatische Bereinigung ein
+dates = "weekly"; # Der Aufräumprozess wird einmal wöchentlich systemd-gesteuert im Hintergrund ausgeführt
+options = "--delete-older-than 14d"; # Löscht alle ungenutzten Systemgenerationen und Pakete, die älter als 14 Tage sind
+};
+};
+zramSwap.enable = true; # Aktiviert ZRAM (erzeugt ein komprimiertes Swap-Laufwerk direkt im RAM; schont die Intel-SSD)
 }
