@@ -1,0 +1,24 @@
+# Nix build outputs
+result
+result-*
+
+# VM / disk images
+*.qcow2
+*.raw
+*.img
+*.iso
+
+# Temporary files
+*.tmp
+*.log
+*.swp
+*~
+.DS_Store
+
+# Local environments
+.direnv/
+
+# Secrets must never enter Git
+secrets/
+*.secret
+*.key
