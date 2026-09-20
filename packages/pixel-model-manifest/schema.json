@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org",
+  "title": "PixelModelManifest",
+  "type": "object",
+  "required": ["role", "name", "format", "quantization", "sha256", "max_ram_mb"],
+  "properties": {
+    "role": { "type": "string", "enum": ["watcher", "coder", "analyst"] },
+    "name": { "type": "string" },
+    "format": { "type": "string", "enum": ["gguf"] },
+    "quantization": { "type": "string" },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "max_ram_mb": { "type": "integer", "maximum": 8192 }
+  },
+  "additionalProperties": false
+}

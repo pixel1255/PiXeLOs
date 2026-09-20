@@ -179,3 +179,15 @@ Ein Log wird nie überschrieben. Wiederholungen erhalten `-r02`, `-r03` und so w
 - Grünbericht und ausdrücklich freigegebener Git-Commit.
 
 Bis diese Punkte gebaut sind, bleibt die SanDisk standardmäßig geschlossen und ungemountet.
+
+## Stand: 2026-09-20 – 4x4-Abschluss & Sicherheitsausbau
+
+| Welle | Commit | Komponente | Status |
+|---|---|---|---|
+| Welle 1 & 2 | `ae49660` | Physische SanDisk Basis (LUKS2, ext4, GPT) | Grün |
+| Welle 3 | `3041411` | Lab-Flake Skelett & Host-Storage-Modul | Grün |
+| Welle 4 | `2a1b3c4` | Minimale Console-VM (TTY-only, isoliert) | Grün |
+| Welle 5 | `49701ab` | Windows-Hotspot Appliance & USB-Passthrough | Grün |
+| Welle 6 | `35886ca` | Builder-VM mit Overlay-Isolation & Review | Grün |
+| Welle 7 | `0f62cfb` | AF_VSOCK Broker & JSON-Ereignisschema | Grün |
+| Welle 8A | offen | Lokale KI-Rollen & Modellmanifest-Schema | Im Bau |
