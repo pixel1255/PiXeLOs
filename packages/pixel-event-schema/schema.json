@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "title": "PixelEvent",
+  "type": "object",
+  "required": ["version", "type", "timestamp", "source", "severity", "payload"],
+  "properties": {
+    "version": { "type": "string" },
+    "type": { "type": "string" },
+    "timestamp": { "type": "integer" },
+    "source": { "type": "string" },
+    "severity": { "type": "string" },
+    "payload": { "type": "object" }
+  }
+}
