@@ -1,28 +1,44 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Striktes Textkonsolen-Setup ohne X11/Wayland
   services.xserver.enable = false;
+  users.users.root.initialPassword = "";
+  services.getty.autologinUser = "root";
 
-  # Login-Sicherheit: Lokale TTY-Anmeldung ohne Netzwerk und ohne Host-Passwörter
-  users.users.root.initialPassword = "void";
-  services.getty.autologinUser = lib.mkForce "root";
+  environment.systemPackages = with pkgs; [ jq curl pciutils usbutils htop ];
 
-  # Deaktivierung aller nicht verhandelbaren Hardware-Einfallstore
+  # Robuste Shell-Init-Begrüßung ohne Escaping-Schlaufen
+  programs.bash.interactiveShellInit = ''
+    echo "======================================================================"
+    echo "       🟢 PIXEL-LAB CONSOLE-VM — INTEGRITY DASHBOARD ACTIVE 🟢"
+    echo "======================================================================"
+    echo " Verfügbare Schnellbefehle für den isolierten Schutzbetrieb:"
+    echo " --------------------------------------------------------------------"
+    echo "  lab-status   -> Zeigt RAM-Auslastung, Belegung & Kernel-Version"
+    echo "  lab-net      -> Prüft die Netzwerktrennung (Soll: lo-only, eth0 DOWN)"
+    echo "  lab-events   -> Zeigt die Whitelist der erlaubten Broker-Aktionen"
+    echo "  lab-off      -> Fährt die VM sicher herunter und schließt QEMU"
+    echo "  ll           -> Erweiterte, farbige Verzeichnisübersicht (ls -la)"
+    echo "======================================================================"
+    echo ""
+  '';
+
+  environment.shellAliases = {
+    "lab-status"  = "echo === LAB STATUS === && free -h && echo && df -h && echo && uname -a";
+    "lab-net"     = "ip -br a && ip route";
+    "lab-events"  = "cat /etc/pixel-lab/broker-actions.conf 2>/dev/null || echo Keine Broker-Config";
+    "lab-off"     = "poweroff";
+    "ll"          = "ls -la --color=auto";
+  };
+
   virtualisation.vmVariant = {
     virtualisation = {
-      qemu.options = [
-        "-nographic"
-        "-monitor none"
-        "-serial stdio"
-      ];
-      # Absolut keine Freigaben des Host-Dateisystems oder Nix-Stores
-      sharedDirectories = lib.mkForce {};
+      graphics = false;
+      sharedDirectories = {};
       writableStore = false;
     };
   };
 
-  # Zusätzliche Software-Absperrungen
   services.openssh.enable = false;
   networking.networkmanager.enable = false;
   networking.useDHCP = false;
