@@ -191,3 +191,8 @@ Bis diese Punkte gebaut sind, bleibt die SanDisk standardmäßig geschlossen und
 | Welle 6 | `35886ca` | Builder-VM mit Overlay-Isolation & Review | Grün |
 | Welle 7 | `0f62cfb` | AF_VSOCK Broker & JSON-Ereignisschema | Grün |
 | Welle 8A | offen | Lokale KI-Rollen & Modellmanifest-Schema | Im Bau |
+
+| Welle 8B | `pending` | Pixel Observer GUI, 7 Native Tabs & Web-Quarantäne | Grün |
+
+## Gesamtfazit (2026-09-20)
+Alle 8 Wellen wurden auf dem Host und der SanDisk deklarativ aufgebaut, schichtweise auditiert und manipulationssicher im Git-Branch `dev` verankert.
