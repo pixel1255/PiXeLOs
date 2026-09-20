@@ -4,7 +4,7 @@
   boot.initrd.luks.devices."pixel-lab-crypt" = {
     device = "/dev/disk/by-id/ata-SanDisk_SSD_PLUS_120GB_183903802232-part1";
     preLVM = true;
-    bypassWorkqueue = true;
+    bypassWorkqueues = true;
   };
 
   fileSystems."/srv/pixel-lab" = {

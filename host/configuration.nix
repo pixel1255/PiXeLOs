@@ -24,6 +24,11 @@
 
     ../modules/users/pixel1255.nix # Lädt die Benutzerdefinition für pixel1255 inklusive Sudo- und Gruppenrechte
     ../modules/users/packages.nix # Lädt die explizite, deklarierte Liste aller installierten CLI- und GUI-Systempakete
+
+    # Pixel-Lab Host-Infrastruktur (Storage, Broker, Hotspot)
+    ../modules/host/pixel-lab-storage.nix
+    ../modules/host/pixel-vm-broker.nix
+    ../modules/host/pixel-vm-broker-hotspot.nix
   ];
 
   fileSystems."/mnt/Ablage" = { # Deklariert den Mountpoint für die interne, sekundäre Datenfestplatte
