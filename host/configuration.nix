@@ -27,7 +27,8 @@
 
     # Pixel-Lab Host-Infrastruktur (Storage, Broker, Hotspot)
     ../modules/host/pixel-lab-storage.nix
-    ../modules/host/pixel-vm-broker.nix
+    ../modules/virtualisation/kvm-broker.nix
+    ../modules/services/local-ai.nix
     ../modules/host/pixel-vm-broker-hotspot.nix
   ];
 
