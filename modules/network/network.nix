@@ -8,9 +8,9 @@ enable = true; # Schaltet Avahi permanent ein
 nssmdns4 = true; # Aktiviert die Namensauflösung für .local-Adressen im lokalen Netzwerk über IPv4
 openFirewall = true; # Öffnet automatisch die benötigten UDP-Ports in der Firewall für mDNS-Anfragen
 publish = { # Definiert, welche Informationen der Host aktiv im Netzwerk ankündigen darf
-enable = true; # Aktiviert das Senden von Netzwerkankündigungen
-addresses = true; # Veröffentlicht die lokalen IP-Adressen des Intel-Hosts
-workstation = true; # Kündigt den Rechner im lokalen Netz als vollwertige Workstation an
+enable = false; # HÄRTUNG NETWORK: Deaktiviert proaktive Ankündigungen
+addresses = false; # Veröffentlicht die lokalen IP-Adressen des Intel-Hosts
+workstation = false; # Kündigt den Rechner im lokalen Netz als vollwertige Workstation an
 };
 };
 services.printing.enable = true; # Aktiviert das Common Unix Printing System (CUPS) zur Verwaltung und Nutzung von Druckern
