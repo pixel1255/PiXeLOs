@@ -21,7 +21,7 @@ package = pkgs.usbmuxd2; # Erzwingt die Nutzung des modernen, performanteren usb
 };
   # HÄRTUNG F04/F05: Kapselung der KVM und VSOCK Interfaces auf die Gruppe KVM mit Rechten 660
   services.udev.extraRules = ''
-    KERNEL=="kvm", GROUP="kvm", MODE="0660"
+    KERNEL=="kvm", GROUP="kvm", MODE="0660", OPTIONS+="static_node=kvm"
     KERNEL=="vhost-vsock", GROUP="kvm", MODE="0660"
   '';
 }
