@@ -5,7 +5,8 @@ users.users.pixel1255 = { # Definitionsblock für das primäre menschliche Benut
 isNormalUser = true; # Deklariert das Konto als regulären unprivilegierten Benutzer (kein System-Spezialaccount)
 description = "PiXeL1255"; # Grafischer Anzeigename für den SDDM Login-Bildschirm
 home = "/home/pixel1255"; # Pfad zum persönlichen Benutzerverzeichnis (Home-Ordner)
-createHome = true; # Zwingt das System, das Home-Verzeichnis beim ersten Erstellen automatisch anzulegen
+createHome = true; # Zwingt das System das Home anzulegen
+    homeMode = "0700"; # HÄRTUNG F02: Zugriffsschutz (nur Besitzer darf lesen/schreiben)
 shell = pkgs.bashInteractive; # Setzt die interaktive GNU Bash inklusive Befehlszeilen-Erweiterungen als Standard-Shell
 extraGroups = [ # Array von Systemgruppen, in die der Benutzer für Hardware- und Adminrechte aufgenommen wird
 "wheel" # Ermöglicht dem Benutzer die Nutzung von 'sudo', um administrative Befehle auszuführen
