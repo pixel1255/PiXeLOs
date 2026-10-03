@@ -8,7 +8,8 @@ experimental-features = [ # Aktiviert moderne Nix-Funktionen, die für dieses Re
 "nix-command" # Ermöglicht die Nutzung der neuen, modernen 'nix'-Subbefehle im Terminal
 "flakes" # Aktiviert die Flake-Infrastruktur inklusive Isolation und flake.lock-Pinning
 ];
-auto-optimise-store = true; # Erkennt identische Dateien im Nix-Store und ersetzt sie automatisch durch Hardlinks (spart SSD-Platz)
+auto-optimise-store = true; # Erkennt identische Dateien im Nix-Store
+      sandbox = true; # HÄRTUNG GATE 13: Erzwingt die absolute, isolierte Compiler-Sandbox im Kernel
 trusted-users = [ # Definiert Benutzerkonten, die erweiterte Befehle an den Nix-Daemon senden dürfen
 "root" # Der Systemadministrator hat volles Vertrauen
 ];
