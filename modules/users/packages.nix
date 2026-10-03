@@ -80,5 +80,6 @@
     # --- Entwicklung & Versionsverwaltung ---
     git 
     python3 
+    virt-viewer
   ];
 }
