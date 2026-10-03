@@ -11,7 +11,6 @@ experimental-features = [ # Aktiviert moderne Nix-Funktionen, die für dieses Re
 auto-optimise-store = true; # Erkennt identische Dateien im Nix-Store und ersetzt sie automatisch durch Hardlinks (spart SSD-Platz)
 trusted-users = [ # Definiert Benutzerkonten, die erweiterte Befehle an den Nix-Daemon senden dürfen
 "root" # Der Systemadministrator hat volles Vertrauen
-"pixel1255" # Der primäre Hauptbenutzer darf Flakes und Builds ohne Einschränkung ausführen
 ];
 };
 gc = { # Automatische Müllabfuhr (Garbage Collection) für den Nix-Store, um Altlasten loszuwerden
