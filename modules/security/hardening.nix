@@ -27,7 +27,10 @@
     "net.ipv4.ip_forward" = 0; # Deaktiviert IP-Weiterleitung im Kernel (der Rechner darf niemals heimlich als Router agieren)
     "net.ipv4.conf.all.send_redirects" = 0; # Verbietet dem Kernel, eigene ICMP-Redirect-Signale ins Netzwerk zu senden
     "net.ipv4.conf.default.send_redirects" = 0; # Verbietet das Senden von ICMP-Redirects standardmäßig auf allen Schnittstellen
-    "net.ipv4.tcp_syncookies" = 1; # Aktiviert TCP Syn-Cookies (Schützt den Netzwerk-Stack vor DoS/SYN-Flood-Überlastungsangriffen)
+    "net.ipv4.tcp_syncookies" = 1; # Aktiviert TCP Syn-Cookies (Schützt den Stack)
+    # HÄRTUNG GATE 09: Speicherschutz & BPF-Absicherung
+    "kernel.kptr_restrict" = 2;
+    "kernel.unprivileged_bpf_disabled" = 1;
   };
 
   services.opensnitch = { # Die interaktive Anwendungs-Firewall („Die Wand in der Mitte“)
