@@ -10,7 +10,8 @@
 
     ../modules/system/boot.nix # Lädt die UEFI, systemd-boot und Kernel-Infrastruktur
     ../modules/system/locale.nix # Lädt Tastaturlayouts, Zeitzone und die Sprach-Lokalisierung
-    ../modules/system/nix-settings.nix # Lädt globale Nix-Optimierungen, Flake-Flags und die wöchentliche Garbage Collection
+    ../modules/system/nix-settings.nix
+    ../modules/system/wiki-aliases.nix
 
     ../modules/hardware/graphics.nix # Lädt den Intel i915 Grafiktreiber und VA-API Videobeschleunigung
     ../modules/hardware/bluetooth.nix # Lädt das BlueZ-Subsystem inklusive automatischem Boot-Power-On

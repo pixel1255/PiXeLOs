@@ -7,16 +7,21 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Definiert das Quell-Repository für die Paketbasis (Rolling Release Unstable)
 
-  outputs = { self, nixpkgs }: { # Definiert die Ausgabestrukturen, die aus den Inputs generiert werden
+  outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      miniA = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [ ./hosts/mini-a/default.nix ];
+      };
+    in { # Definiert die Ausgabestrukturen, die aus den Inputs generiert werden
     nixosConfigurations.pixel1255 = nixpkgs.lib.nixosSystem { # Erzeugt die spezifische Systemkonfiguration für den Hostnamen 'pixel1255'
+      specialArgs = { inherit miniA; };
       system = "x86_64-linux"; # Fixiert die Zielarchitektur auf klassische 64-Bit Intel/AMD physische Hardware
       modules = [ # Array der primären Konfigurationsmodule, die geladen werden müssen
         ./host/configuration.nix # Verweist auf den Hauptdirigenten, der alle Sub-Module und Kategorien zusammenzieht
       ];
     };
-    nixosConfigurations.miniA = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [ ./hosts/mini-a/default.nix ];
-    };
+    nixosConfigurations.miniA = miniA;
   };
 }
