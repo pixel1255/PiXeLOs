@@ -1,4 +1,4 @@
-{ config, pkgs, miniA, ... }:
+{ config, pkgs, miniA, miniB, ... }:
 {
   virtualisation.libvirtd.enable = true;
 
@@ -18,9 +18,8 @@
     description = "KVM Kapsel: Mini-B (USB-Snooper) — Exklusives iPhone-Passthrough";
     after = [ "libvirtd.service" ];
     serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.qemu}/bin/qemu-system-x86_64 -enable-kvm -cpu host -smp 1 -m 2048 -name mini-b -drive file=/dev/sdb2,format=raw,if=virtio,aio=native,cache=none -device vhost-vsock-pci,guest-cid=4 -device usb-ehci,id=usb -device usb-host,vendorid=0x05ac,productid=0x12a8 -vga qxl -spice unix=on,addr=/tmp/vm_mini_b.socket,disable-ticketing=on";
-      Restart = "no"; User = "pixel1255"; SupplementaryGroups = [ "disk" ];
+ExecStart = "${pkgs.qemu}/bin/qemu-system-x86_64 -enable-kvm -cpu host -smp 1 -m 2048 -name mini-b -display none -nic none -device virtio-serial -chardev spicevmc,id=vdagent,debug=0,name=vdagent -device virtserialport,chardev=vdagent,name=com.redhat.spice.0 -kernel ${miniB.config.system.build.kernel}/bzImage -initrd ${miniB.config.system.build.initialRamdisk}/initrd -append \"root=/dev/vda rw init=${miniB.config.system.build.toplevel}/init systemConfig=${miniB.config.system.build.toplevel}\" -drive file=/dev/sdb2,format=raw,if=virtio,aio=native,cache=none -device vhost-vsock-pci,guest-cid=4 -vga qxl -spice unix=on,addr=/tmp/vm_mini_b.socket,disable-ticketing=on";
+      Restart = "no"; User = "pixel1255"; SupplementaryGroups = [ "disk" "kvm" ];
     };
   };
 
