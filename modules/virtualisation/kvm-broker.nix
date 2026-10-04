@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, miniA, ... }:
 {
   virtualisation.libvirtd.enable = true;
 
@@ -8,8 +8,8 @@
     after = [ "libvirtd.service" ];
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${pkgs.qemu}/bin/qemu-system-x86_64 -enable-kvm -cpu host -smp 1 -m 2048 -name mini-a -drive file=/dev/sdb1,format=raw,if=virtio,aio=native,cache=none -device vhost-vsock-pci,guest-cid=3 -vga qxl -spice unix=on,addr=/tmp/vm_mini_a.socket,disable-ticketing=on";
-      Restart = "no"; User = "pixel1255"; SupplementaryGroups = [ "disk" ];
+      ExecStart = "${pkgs.qemu}/bin/qemu-system-x86_64 -enable-kvm -cpu host -smp 1 -m 2048 -name mini-a -display none -nic none -device virtio-serial -chardev spicevmc,id=vdagent,debug=0,name=vdagent -device virtserialport,chardev=vdagent,name=com.redhat.spice.0 -kernel ${miniA.config.system.build.kernel}/bzImage -initrd ${miniA.config.system.build.initialRamdisk}/initrd -append \"root=/dev/vda rw init=${miniA.config.system.build.toplevel}/init systemConfig=${miniA.config.system.build.toplevel}\" -drive file=/dev/disk/by-uuid/702c15a3-743d-4630-88a2-52fd6ec44e3d,format=raw,if=virtio,aio=native,cache=none -device vhost-vsock-pci,guest-cid=3 -vga qxl -spice unix=on,addr=/tmp/vm_mini_a.socket,disable-ticketing=on";
+      Restart = "no"; User = "pixel1255"; SupplementaryGroups = [ "disk" "kvm" ];
     };
   };
 

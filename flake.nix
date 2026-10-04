@@ -14,5 +14,9 @@
         ./host/configuration.nix # Verweist auf den Hauptdirigenten, der alle Sub-Module und Kategorien zusammenzieht
       ];
     };
+    nixosConfigurations.miniA = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [ ./hosts/mini-a/default.nix ];
+    };
   };
 }
