@@ -1,4 +1,4 @@
-{ modulesPath, ... }:
+{ modulesPath, pkgs, ... }:
 
 {
   imports = [
@@ -7,47 +7,50 @@
 
   networking.hostName = "pixel-mini-a";
   networking.networkmanager.enable = false;
-  networking.useDHCP = false;
-  networking.firewall.enable = true;
-  services.openssh.enable = false;
+  networking.useDHCP = true;
+  networking.firewall.enable = false;
 
-  boot.loader.grub.enable = false;
-  boot.loader.systemd-boot.enable = false;
+  # NORMALE VM-BOOT-INFRASTRUKTUR
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelParams = [ "root=/dev/vda" ];
   fileSystems."/" = {
-    device = "/dev/vda";
+    device = "/dev/vda1";
     fsType = "ext4";
   };
 
-  hardware.graphics.enable = true;
+  fileSystems."/boot" = {
+    device = "/dev/vda2";
+    fsType = "vfat";
+  };
 
-  i18n.defaultLocale = "de_DE.UTF-8";
-  console.keyMap = "de";
-  services.xserver.xkb.layout = "de";
+  hardware.graphics.enable = true;
+  services.spice-vdagentd.enable = true;
+
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "qxl" ];
-  services.xserver.moduleSection = ''
-    Load "vgahw"
-  '';
   services.displayManager.sddm = {
     enable = true;
-    wayland.enable = false;
+    wayland.enable = true;
   };
-  services.displayManager.defaultSession = "plasmax11";
   services.displayManager.autoLogin = {
     enable = true;
     user = "pixel1255";
   };
   services.desktopManager.plasma6.enable = true;
-  services.spice-vdagentd.enable = true;
 
   users.users.pixel1255 = {
     isNormalUser = true;
-    description = "Mini-A";
+    description = "Mini-A Wächter";
     home = "/home/pixel1255";
     createHome = true;
+    extraGroups = [ "wheel" "video" "audio" ];
   };
+
+  environment.systemPackages = with pkgs; [
+    firefox-beta
+    coreutils
+    xclip
+  ];
 
   system.stateVersion = "26.11";
 }

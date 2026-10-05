@@ -18,9 +18,13 @@
         inherit system;
         modules = [ ./hosts/mini-b/default.nix ];
       };
+      miniC = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [ ./hosts/mini-c/default.nix ];
+      };
     in { # Definiert die Ausgabestrukturen, die aus den Inputs generiert werden
     nixosConfigurations.pixel1255 = nixpkgs.lib.nixosSystem { # Erzeugt die spezifische Systemkonfiguration für den Hostnamen 'pixel1255'
-      specialArgs = { inherit miniA miniB; };
+      specialArgs = { inherit miniA miniB miniC; };
       system = "x86_64-linux"; # Fixiert die Zielarchitektur auf klassische 64-Bit Intel/AMD physische Hardware
       modules = [ # Array der primären Konfigurationsmodule, die geladen werden müssen
         ./host/configuration.nix # Verweist auf den Hauptdirigenten, der alle Sub-Module und Kategorien zusammenzieht
@@ -28,5 +32,6 @@
     };
     nixosConfigurations.miniA = miniA;
     nixosConfigurations.miniB = miniB;
+    nixosConfigurations.miniC = miniC;
   };
 }
