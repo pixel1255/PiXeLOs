@@ -27,5 +27,7 @@
     };
   };
 
+  documentation.info.enable = false;
+  documentation.man.enable = true;
   zramSwap.enable = true; # Aktiviert ZRAM (erzeugt ein komprimiertes Swap-Laufwerk direkt im RAM; schont die Intel-SSD)
 }

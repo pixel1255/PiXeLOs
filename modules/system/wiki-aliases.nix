@@ -10,7 +10,10 @@
     status-lab = "echo '=== STATUS DER KAPSEL-TRESRE ===' && lsblk /dev/sdb && echo '=== STATUS DER systemd-DIENSTE ===' && systemctl status 'kvm-mini-*' --no-pager";
     logs-firewall = "sudo tail -f /var/log/opensnitchd.log | jq .";
     
-    # Neue Hotspot-Appliance Befehlsketten
+    # Der ultimative Direkt-Start für deine fertige Appliance
+    lab = "cd ~/pixel-vm-native-build-104-v4VqdFWB && ./pixel-vm start";
+
+    # Die libvirt/virsh Steuerungs-Sonden
     hotspot-start   = "sudo virsh start pixel-lab-hotspot && virt-viewer -c qemu:///system pixel-lab-hotspot &";
     hotspot-stop    = "sudo virsh shutdown pixel-lab-hotspot";
     hotspot-console = "sudo virsh console pixel-lab-hotspot";
