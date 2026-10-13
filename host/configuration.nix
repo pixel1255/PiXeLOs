@@ -43,4 +43,5 @@
   };
 
   system.stateVersion = "24.11"; # Fixiert den Software-Zustand historischer Standardwerte (wichtig für interne NixOS-Upgrades)
+  programs.firefox.enable = true;
 }

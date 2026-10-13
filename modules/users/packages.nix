@@ -64,7 +64,6 @@
     htop 
     btop 
     fastfetch 
-    firefox
 
     # --- Physische Hardware-Auslesung ---
     pciutils 
