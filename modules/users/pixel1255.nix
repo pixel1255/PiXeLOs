@@ -1,5 +1,5 @@
 ## ==============================================================================
-## MODULES/USERS/PIXEL1255.NIX — HOST USER-IDENTITÄT & UNZERSTÖRBARE COCKPIT-NAV
+## MODULES/USERS/PIXEL1255.NIX — HOST USER-IDENTITÄT & REPARIERTE COCKPIT-NAV
 ## Co-Created by Pixel1255 & Zwillingsstern-KI (GxG-Prozess)
 ## ==============================================================================
 { config, pkgs, ... }:
@@ -47,7 +47,7 @@ LOGO
     fi
   '';
 
-  # --- Aliase für Effizienz (Mit unzerstörbarer nohup-Entkopplung) ---
+  # --- Aliase für Effizienz (Mit erzwungener System-Bibliotheken-Kopplung) ---
   programs.bash.shellAliases = {
     update = "sudo nixos-rebuild switch --flake /etc/nixos/#pixel1255";
     cleanup = "sudo sync; echo 3 | sudo tee /proc/sys/vm/drop_caches && nix-collect-garbage --delete-older-than 7d";
@@ -56,11 +56,11 @@ LOGO
     ll = "eza -l --icons --group-directories-first";
     ls = "eza --icons --group-directories-first";
 
-    # --- AGY & APPS: Radikal vom Terminal-Prozess losgelöst ---
-    agy     = "nohup opensnitch-ui >/dev/null 2>&1 & disown";
-    firefox = "nohup firefox >/dev/null 2>&1 & disown"; # Gefixt: Greift nun auf den regulären Host-Firefox
-    dolphin = "nohup dolphin >/dev/null 2>&1 & disown";
-    kate    = "nohup kate >/dev/null 2>&1 & disown";
+    # --- AGY & APPS: Jetzt mit injizierter System-Library für fehlerfreies Audio/Video ---
+    agy     = "nohup env LD_LIBRARY_PATH=/run/current-system/sw/lib opensnitch-ui >/dev/null 2>&1 & disown";
+    firefox = "nohup env LD_LIBRARY_PATH=/run/current-system/sw/lib firefox >/dev/null 2>&1 & disown";
+    dolphin = "nohup env LD_LIBRARY_PATH=/run/current-system/sw/lib dolphin >/dev/null 2>&1 & disown";
+    kate    = "nohup env LD_LIBRARY_PATH=/run/current-system/sw/lib kate >/dev/null 2>&1 & disown";
 
     # --- Blitzschnelle Verzeichnis-Sprünge ---
     home    = "cd ~ && eza --icons --group-directories-first";
