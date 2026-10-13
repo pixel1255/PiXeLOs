@@ -64,6 +64,7 @@
     htop 
     btop 
     fastfetch 
+    firefox
 
     # --- Physische Hardware-Auslesung ---
     pciutils 
@@ -80,5 +81,6 @@
     # --- Entwicklung & Versionsverwaltung ---
     git 
     python3 
+    virt-viewer
   ];
 }

@@ -1,0 +1,13 @@
+<domain type="kvm">
+  <name>pixel-lab-hotspot</name>
+  <memory unit="KiB">4194304</memory>
+  <vcpu placement="static">2</vcpu>
+  <devices>
+    <hostdev mode="subsystem" type="usb" managed="yes">
+      <source>
+        <vendor id="0x057c"/>
+        <product id="0x8602"/>
+      </source>
+    </hostdev>
+  </devices>
+</domain>

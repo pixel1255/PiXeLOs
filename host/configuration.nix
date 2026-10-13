@@ -10,7 +10,8 @@
 
     ../modules/system/boot.nix # Lädt die UEFI, systemd-boot und Kernel-Infrastruktur
     ../modules/system/locale.nix # Lädt Tastaturlayouts, Zeitzone und die Sprach-Lokalisierung
-    ../modules/system/nix-settings.nix # Lädt globale Nix-Optimierungen, Flake-Flags und die wöchentliche Garbage Collection
+    ../modules/system/nix-settings.nix
+    ../modules/system/wiki-aliases.nix
 
     ../modules/hardware/graphics.nix # Lädt den Intel i915 Grafiktreiber und VA-API Videobeschleunigung
     ../modules/hardware/bluetooth.nix # Lädt das BlueZ-Subsystem inklusive automatischem Boot-Power-On
@@ -24,6 +25,12 @@
 
     ../modules/users/pixel1255.nix # Lädt die Benutzerdefinition für pixel1255 inklusive Sudo- und Gruppenrechte
     ../modules/users/packages.nix # Lädt die explizite, deklarierte Liste aller installierten CLI- und GUI-Systempakete
+
+    # Pixel-Lab Host-Infrastruktur (Storage, Broker, Hotspot)
+    ../modules/host/pixel-lab-storage.nix
+    ../modules/virtualisation/kvm-broker.nix
+    ../modules/services/local-ai.nix
+    ../modules/host/pixel-vm-broker-hotspot.nix
   ];
 
   fileSystems."/mnt/Ablage" = { # Deklariert den Mountpoint für die interne, sekundäre Datenfestplatte

@@ -19,4 +19,9 @@ services.usbmuxd = { # Aktiviert den Apple USB-Multiplex-Dienst (stellt die USB-
 enable = true; # Schaltet den Dienst permanent ein
 package = pkgs.usbmuxd2; # Erzwingt die Nutzung des modernen, performanteren usbmuxd2-Backends für stabiles Tethering
 };
+  # HÄRTUNG F04/F05: Kapselung der KVM und VSOCK Interfaces auf die Gruppe KVM mit Rechten 660
+  services.udev.extraRules = ''
+    KERNEL=="kvm", GROUP="kvm", MODE="0660", OPTIONS+="static_node=kvm"
+    KERNEL=="vhost-vsock", GROUP="kvm", MODE="0660"
+  '';
 }

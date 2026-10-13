@@ -1,0 +1,20 @@
+{
+  "application": "Pixel Observer",
+  "version": "1.0",
+  "runtime": "native-qt-qml",
+  "privileges": "unprivileged-user",
+  "tabs": [
+    { "id": "overview", "title": "Überblick", "source": "vsock://events/system" },
+    { "id": "network",  "title": "Netzwerk",  "source": "vsock://events/net" },
+    { "id": "services", "title": "Dienste",   "source": "vsock://events/services" },
+    { "id": "vms",      "title": "VMs",       "source": "broker://status" },
+    { "id": "watcher",  "title": "Watcher",   "source": "ai://watcher/stream" },
+    { "id": "builder",  "title": "Builder",   "source": "broker://builder-lifecycle" },
+    { "id": "review",   "title": "Review",    "source": "quarantine://review-queue" }
+  ],
+  "security_boundaries": {
+    "direct_host_shell": false,
+    "direct_libvirt_socket": false,
+    "untrusted_web_auto_exec": false
+  }
+}

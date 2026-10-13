@@ -1,24 +1,27 @@
-# Nix build outputs
-result
-result-*
 
-# VM / disk images
-*.qcow2
-*.raw
+*~
+*.bin
+.direnv/
+.DS_Store
+*.gguf
+images/*.qcow2
 *.img
 *.iso
-
+*.key
+# Local environments
+*.log
+models/
+# Nix build outputs
+# Pixel-Lab KI-Modelle & Binärdaten (Niemals in Git!)
+*.qcow2
+*.raw
+result
+result-*
+*.safetensors
+*.secret
+secrets/
+# Secrets must never enter Git
+*.swp
 # Temporary files
 *.tmp
-*.log
-*.swp
-*~
-.DS_Store
-
-# Local environments
-.direnv/
-
-# Secrets must never enter Git
-secrets/
-*.secret
-*.key
+# VM / disk images

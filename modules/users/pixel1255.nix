@@ -1,28 +1,69 @@
-## ==============================================================================## MODULES/USERS/PIXEL1255.NIX — BENUTZERKONTO, SUDO & BASH-COMPLETION## Co-Created by Pixel1255 & Zwillingsstern-KI (GxG-Prozess)## ==============================================================================
-{ pkgs, ... }: # Standard-Funktionskopf mit Zugriff auf pkgs für die interaktive Shell und Browser
+## ==============================================================================
+## MODULES/USERS/PIXEL1255.NIX — HOST USER-IDENTITÄT & UNZERSTÖRBARE COCKPIT-NAV
+## Co-Created by Pixel1255 & Zwillingsstern-KI (GxG-Prozess)
+## ==============================================================================
+{ config, pkgs, ... }:
+
 {
-users.users.pixel1255 = { # Definitionsblock für das primäre menschliche Benutzerkonto
-isNormalUser = true; # Deklariert das Konto als regulären unprivilegierten Benutzer (kein System-Spezialaccount)
-description = "PiXeL1255"; # Grafischer Anzeigename für den SDDM Login-Bildschirm
-home = "/home/pixel1255"; # Pfad zum persönlichen Benutzerverzeichnis (Home-Ordner)
-createHome = true; # Zwingt das System, das Home-Verzeichnis beim ersten Erstellen automatisch anzulegen
-shell = pkgs.bashInteractive; # Setzt die interaktive GNU Bash inklusive Befehlszeilen-Erweiterungen als Standard-Shell
-extraGroups = [ # Array von Systemgruppen, in die der Benutzer für Hardware- und Adminrechte aufgenommen wird
-"wheel" # Ermöglicht dem Benutzer die Nutzung von 'sudo', um administrative Befehle auszuführen
-"networkmanager" # Erlaubt das eigenständige Wechseln von WLANs und Profilen ohne Root-Passwort
-"audio" # Gewährt direkten Zugriff auf physische Soundkarten und Audiogeräte
-"video" # Gewährt direkten Zugriff auf die Intel-GPU (wichtig für Hardware-Videobeschleunigung)
-"dialout" # Erlaubt den Zugriff auf serielle Schnittstellen (wichtig für Entwickler-Hardware/Arbeitswerkzeuge)
-"kvm" # Gewährt Zugriff auf den Kernel-Virtualisierungs-Beschleuniger (wichtig für spätere VMs)
-];
-};
-security.sudo = { # Konfigurationsblock für das Sudo-Rechte-System
-enable = true; # Schaltet das Sudo-Framework für privilegierte Befehle ein
-wheelNeedsPassword = true; # Zwingt Mitglieder der Gruppe 'wheel', immer ihr eigenes Passwort zur Bestätigung einzugeben (Sicherheitsschutz)
-};
-programs.bash.completion.enable = true; # Aktiviert die intelligente Tab-Vervollständigung für Bash-Befehle (In v0.002 syntaktisch gefixt)
-programs.firefox = { # Konfigurationsblock für den Webbrowser Firefox
-enable = true; # Aktiviert die systemweite Bereitstellung und Vorkonfiguration von Firefox
-package = pkgs.firefox-beta; # Erzwingt die Installation der topaktuellen Firefox Beta-Version laut Logbuch-Ziel
-};
+  # --- Haupt-Benutzerkonto Konfiguration ---
+  users.users.pixel1255 = {
+    isNormalUser = true;
+    description = "PiXeL1255 OS Architect";
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" "kvm" "libvirtd" ];
+    homeMode = "0700";
+    packages = with pkgs; [ eza ];
+  };
+
+  # --- Terminal-Branding & Interaktive Funktionen ---
+  programs.bash.interactiveShellInit = ''
+    info-os() { # Funktion für Logo und System-Status
+      echo -e "\e[1;33m" # Gelbe Farbe für das Branding
+      cat << "LOGO"
+ ██████╗  ██████╗  ██████╗ ██╗██╗  ██╗███████╗██╗          ██╗██████╗ ███████╗███████╗
+ ██╔═══██╗██╔═══██╗██╔══██╗██║╚██╗██╔╝██╔════╝██║         ███║╚════██╗██╔════╝██╔════╝
+ ██║   ██║██║   ██║██████╔╝██║ ╚███╔╝ █████╗  ██║         ╚██║ █████╔╝███████╗███████╗
+ ██║   ██║██║   ██║██╔═══╝ ██║ ██╔██╗ ██╔══╝  ██║          ██║██╔═══╝ ╚════██╗╚════██╗
+ ╚██████╔╝╚██████╔╝██║     ██║██╔╝ ██╗███████╗███████╗     ██║███████╗███████╗███████╗
+  ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝     ╚═╝╚══════╝╚══════╝╚══════╝
+
+                 >>>  C R E A T E D   B Y   G X G  <<<
+LOGO
+      echo -e "\e[0m" # Farbe zurücksetzen
+      echo -e "\e[1;33mVerfügbare Befehle & Aliase:\e[0m"
+      echo -e " \e[1;32mupdate\e[0m     : System-Update & Rebuild (Gold-Modus)"
+      echo -e " \e[1;32mcleanup\e[0m    : Müll löschen, Store optimieren & RAM leeren"
+      echo -e " \e[1;32mlab\e[0m        : Direkt-Start der fertigen Hotspot-Appliance-VM"
+      echo -e " \e[1;32magy\e[0m        : Anti-Gravity — OpenSnitch Firewall GUI aufrufen"
+      echo -e " \e[1;32mls / ll\e[0m    : Modernes Listing (eza) mit Icons"
+      echo -e " \e[1;32mtree\e[0m       : Verzeichnisstruktur als Baum anzeigen"
+      echo -e "\n\e[1;35mDirekt-Starter Apps & Pfade:\e[0m"
+      echo -e " firefox | dolphin | kate | home | desktop"
+      echo -e "\n\e[1;34mSystem:\e[0m PiXeL1255CreatedOs - Pure Architect Edition"
+    }
+    info-os # Logo beim Start anzeigen
+    
+    if command -v zoxide >/dev/null 2>&1; then
+      eval "$(zoxide init bash)"
+    fi
+  '';
+
+  # --- Aliase für Effizienz (Mit unzerstörbarer nohup-Entkopplung) ---
+  programs.bash.shellAliases = {
+    update = "sudo nixos-rebuild switch --flake /etc/nixos/#pixel1255";
+    cleanup = "sudo sync; echo 3 | sudo tee /proc/sys/vm/drop_caches && nix-collect-garbage --delete-older-than 7d";
+    lab = "cd ~/pixel-vm-native-build-104-v4VqdFWB && nohup ./pixel-vm start >/dev/null 2>&1 & disown";
+    
+    ll = "eza -l --icons --group-directories-first";
+    ls = "eza --icons --group-directories-first";
+
+    # --- AGY & APPS: Radikal vom Terminal-Prozess losgelöst ---
+    agy     = "nohup opensnitch-ui >/dev/null 2>&1 & disown";
+    firefox = "nohup firefox >/dev/null 2>&1 & disown"; # Gefixt: Greift nun auf den regulären Host-Firefox
+    dolphin = "nohup dolphin >/dev/null 2>&1 & disown";
+    kate    = "nohup kate >/dev/null 2>&1 & disown";
+
+    # --- Blitzschnelle Verzeichnis-Sprünge ---
+    home    = "cd ~ && eza --icons --group-directories-first";
+    desktop = "cd ~/Schreibtisch 2>/dev/null || cd ~/Desktop && eza --icons --group-directories-first";
+  };
 }
