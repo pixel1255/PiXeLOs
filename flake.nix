@@ -1,5 +1,5 @@
 # ==============================================================================
-# FLAKE.NIX — ZENTRALER EINSTIEGSPUNKT DER NIXOS-FLAKE
+# FLAKE.NIX — ZENTRALER EINSTIEGSPUNKT DER NIXOS-FLAKE (MIT MASTER-KEY)
 # Co-Created by Pixel1255 & Anti-Gravity Gemini (GxG-Prozess)
 # ==============================================================================
 {
@@ -9,13 +9,18 @@
 
   outputs = { self, nixpkgs }: { 
     
-    # --- DEINE NEUE KAPSEL-KONFIGURATION [WELLE 2] ---
     nixosConfigurations.kali-audit = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = [ ./modules/virtualisation/kali-guest.nix ];
+      modules = [ 
+        ./modules/virtualisation/kali-guest.nix 
+        # DAS MITGELIEFERTE ENTWICKLER-GATTER: Erzwingt das Passwort "p" für alle VM-Instanzen!
+        ({ pkgs, ... }: {
+          users.users.audit-user.password = "p";
+          users.users.root.password = "p";
+        })
+      ];
     };
 
-    # --- DEIN COCKPIT-HOST (PIXEL1255) ---
     nixosConfigurations.pixel1255 = nixpkgs.lib.nixosSystem { 
       system = "x86_64-linux"; 
       modules = [ ./host/configuration.nix ];

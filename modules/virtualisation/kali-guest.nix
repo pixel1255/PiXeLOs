@@ -1,5 +1,5 @@
 ## ==============================================================================
-## MODULES/VIRTUALISATION/KALI-GUEST.NIX — DIE FORENSIK-KAPSEL (ROOT-BYPASS FIX)
+## MODULES/VIRTUALISATION/KALI-GUEST.NIX — DIE FORENSIK-KAPSEL (MASTER INTEGRATION)
 ## Co-Created by Pixel1255 & Anti-Gravity Gemini (GxG-Prozess)
 ## ==============================================================================
 { config, pkgs, lib, ... }:
@@ -12,51 +12,35 @@
     ../desktop/plasma.nix       # Importiert die Plasma-Struktur
   ];
 
-  # --- Kapsel-Identität laut Roadmap ---
   networking.hostName = "pixel-lab-kali-audit";
   system.stateVersion = "24.11"; 
 
-  # --- Deutsches Tastaturlayout konfliktfrei erzwingen ---
   console.keyMap = lib.mkForce "de-latin1";
   services.xserver.xkb.layout = lib.mkForce "de";
 
-  # --- Bootvorgang für virtuelle Umgebungen ---
   boot.loader.grub = {
     enable = true;
     device = "/dev/vda"; 
   };
 
-  # --- Standard VirtIO-Dateisystem für KVM-Gäste ---
   fileSystems."/" = {
     device = "/dev/vda";
     fsType = "ext4";
   };
 
-  # --- Spice & QEMU Guest Integration ---
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true; 
-
-  # --- Grafik-Server-Stabilität (X11) ---
   services.displayManager.defaultSession = lib.mkForce "plasmax11";
 
-  # --- Die exakte, schlanke Audit-Toolbox ---
   environment.systemPackages = with pkgs; [
-    wireshark           # Grafische Netzwerk-Sonde
-    tshark              # CLI-Netzwerk-Sniffer
-    nmap                # Port-Scanner
-    testssl             # TLS-Audits
-    kdePackages.kate    # Editor (Plasma 6)
-    chromium            # Isoliertes Chrome-Gatter
-    obsidian            # Wissensdatenbank
+    wireshark tshark nmap testssl kdePackages.kate chromium obsidian
   ];
 
-  # --- Gehärteter Firefox-Beta für die Kapsel ---
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-beta;
   };
 
-  # --- Benutzerverwaltung mit unfehlbarem Klartext-Initial-Passwort ---
   users.users.audit-user = {
     isNormalUser = true;
     uid = 1255;
@@ -66,18 +50,8 @@
     homeMode = "0700"; 
     shell = pkgs.bashInteractive;
     extraGroups = [ "wheel" "networkmanager" "audio" "video" "wireshark" ];
-    initialPassword = "p"; 
   };
 
-  # --- HÄRTUNG AUFHEBEN FÜR ERSTSTART: Erlaubt leeres Root-Passwort über TTY ---
-  users.users.root.initialPassword = "";
-
-  # --- EXTRA VM-VARIANTEN OVERRIDES ---
-  virtualisation.vmVariant = {
-    security.pam.sshAgentAuth.enable = true;
-  };
-
-  # --- Sicherheits-Infrastruktur ---
   security.wrappers.dumpcap = {
     source = "${pkgs.wireshark-cli}/bin/dumpcap";
     capabilities = "cap_net_raw,cap_net_admin+eip";
