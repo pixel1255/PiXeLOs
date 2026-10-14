@@ -31,6 +31,11 @@
   # --- Spice & QEMU Guest Integration (Für verzögerungsfreie Desktop-Kopplung) ---
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true; # Erlaubt kontrolliertes Copy-Paste zum Mittleren Monitor
+  # --- Automatischer Login für den schnellen Cockpit-Start ---
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "audit-user";
+  };
 
   # --- Die exakte, schlanke Audit-Toolbox (Strikt Passiv & Forensisch) ---
   environment.systemPackages = with pkgs; [
