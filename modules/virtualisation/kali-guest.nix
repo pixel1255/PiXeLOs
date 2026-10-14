@@ -74,7 +74,7 @@
   # --- EXTRA VM-VARIANTEN OVERRIDES FÜR REINE ENTWICKLUNGS-FREIGABE ---
   virtualisation.vmVariant = {
     # Erlaubt leere Passwörter und hebelt jegliche PAM-Sperren aus
-    security.pam.enableSSHAgentAuth = true;
+    security.pam.sshAgentAuth.enable = true;
   };
 
   # --- Sicherheits-Infrastruktur ---
