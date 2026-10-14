@@ -1,5 +1,5 @@
 ## ==============================================================================
-## MODULES/VIRTUALISATION/KALI-GUEST.NIX — DIE FORENSIK-KAPSEL (UNZERSTÖRBARER FIX)
+## MODULES/VIRTUALISATION/KALI-GUEST.NIX — DIE FORENSIK-KAPSEL (X11-STABIL)
 ## Co-Created by Pixel1255 & Anti-Gravity Gemini (GxG-Prozess)
 ## ==============================================================================
 { config, pkgs, lib, ... }:
@@ -9,7 +9,7 @@
     ../system/locale.nix        # Erbt die Systemsprache des Hosts
     ../system/nix-settings.nix  # Erbt die gehärteten Daemon-Schranken
     ../desktop/audio.nix        # Kapselt das PipeWire-Soundsystem für Audio-Analysen
-    ../desktop/plasma.nix       # Zündet KDE Plasma 6 auf dem rechten Monitor
+    ../desktop/plasma.nix       # Importiert die Plasma-Struktur
   ];
 
   # --- Kapsel-Identität laut Roadmap ---
@@ -36,10 +36,10 @@
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true; 
 
-  # --- RETTUNGS-HEBEL 1: Erlaubt leere Passwörter für den Notfallmodus ---
-  services.openssh.settings.PermitEmptyPasswords = true;
+  # --- STRATEGIE-HEBEL 1: Stabilen X11-Modus anstelle von Wayland erzwingen ---
+  services.displayManager.defaultSession = lib.mkForce "plasma-x11";
 
-  # --- RETTUNGS-HEBEL 2: Automatische Anmeldung direkt auf den Plasma-Desktop ---
+  # --- STRATEGIE-HEBEL 2: Grafischen Login komplett skippen (Auto-Login) ---
   services.displayManager.autoLogin = {
     enable = true;
     user = "audit-user";
@@ -62,7 +62,7 @@
     package = pkgs.firefox-beta;
   };
 
-  # --- Benutzerverwaltung mit universellem Passwort (Passwort: p) ---
+  # --- Benutzerverwaltung ---
   users.users.audit-user = {
     isNormalUser = true;
     description = "Passive Forensic Auditor";
@@ -71,7 +71,6 @@
     homeMode = "0700"; 
     shell = pkgs.bashInteractive;
     extraGroups = [ "wheel" "networkmanager" "audio" "video" "wireshark" ];
-    hashedPassword = "$6$rounds=50000$GxGPixel1255$g6pA7AOfv1F7WJ9f0zVb6vX7wN9u8x2C0I8uXg03tJ8b6V7e1.DskN84E9I5qKxD7y1vR3WJ9f0zVb6vX7wN9u8x2C0I8uXg03tJ8b6V.";
   };
 
   # --- Sicherheits-Infrastruktur ---
