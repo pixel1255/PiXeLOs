@@ -22,6 +22,12 @@
     device = "/dev/vda"; # VirtIO-Standardlaufwerk für maximale KVM-Geschwindigkeit
   };
 
+  # --- Standard VirtIO-Dateisystem für KVM-Gäste ---
+  fileSystems."/" = {
+    device = "/dev/vda";
+    fsType = "ext4";
+  };
+
   # --- Spice & QEMU Guest Integration (Für verzögerungsfreie Desktop-Kopplung) ---
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true; # Erlaubt kontrolliertes Copy-Paste zum Mittleren Monitor
@@ -32,7 +38,7 @@
     tshark              # CLI-Netzwerk-Sniffer für die automatisierte Überwachung
     nmap                # Port-Scanner für passive OS- und Versions-Scans (-sV, -O)
     testssl             # Zertifikats- und Protokoll-Prüfer für TLS-Audits
-    kate                # Editor für Skript-Strukturierungen
+    kdePackages.kate                # Editor für Skript-Strukturierungen
     chromium            # Isoliertes Chrome-Gatter für Gegenprüfungen
     obsidian            # Deine lokale Wissensdatenbank für die Vorfall-Dokumentation
   ];
