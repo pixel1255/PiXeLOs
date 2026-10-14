@@ -8,6 +8,11 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Definiert das Quell-Repository für die Paketbasis (Rolling Release Unstable)
 
   outputs = { self, nixpkgs }: { # Definiert die Ausgabestrukturen, die aus den Inputs generiert werden
+      kali-audit = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./modules/virtualisation/kali-guest.nix ];
+      };
+
     nixosConfigurations.pixel1255 = nixpkgs.lib.nixosSystem { # Erzeugt die spezifische Systemkonfiguration für den Hostnamen 'pixel1255'
       system = "x86_64-linux"; # Fixiert die Zielarchitektur auf klassische 64-Bit Intel/AMD physische Hardware
       modules = [ # Array der primären Konfigurationsmodule, die geladen werden müssen
