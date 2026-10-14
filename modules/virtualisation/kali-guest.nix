@@ -34,7 +34,7 @@
 
   # --- Die exakte, schlanke Audit-Toolbox (Strikt Passiv & Forensisch) ---
   environment.systemPackages = with pkgs; [
-    wireshark-qt        # Grafische Netzwerk-Sonde für tiefe Paketanalysen
+    wireshark        # Grafische Netzwerk-Sonde für tiefe Paketanalysen
     tshark              # CLI-Netzwerk-Sniffer für die automatisierte Überwachung
     nmap                # Port-Scanner für passive OS- und Versions-Scans (-sV, -O)
     testssl             # Zertifikats- und Protokoll-Prüfer für TLS-Audits
