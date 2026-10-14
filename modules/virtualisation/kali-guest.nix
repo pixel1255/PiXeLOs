@@ -14,17 +14,16 @@
 
   # --- Kapsel-Identität laut Roadmap ---
   networking.hostName = "pixel-lab-kali-audit";
-  system.stateVersion = "24.11"; # Synchronisiert mit dem stabilen Host-Zustand
+  system.stateVersion = "24.11"; 
 
-  # --- Deutsches Tastaturlayout systemweit erzwingen ---
-  i18n.defaultLocale = "de_DE.UTF-8";
-  console.keyMap = "de";
-  services.xserver.xkb.layout = "de";
+  # --- Deutsches Tastaturlayout konfliktfrei erzwingen ---
+  console.keyMap = lib.mkForce "de-latin1";
+  services.xserver.xkb.layout = lib.mkForce "de";
 
   # --- Bootvorgang für virtuelle Umgebungen ---
   boot.loader.grub = {
     enable = true;
-    device = "/dev/vda"; # VirtIO-Standardlaufwerk für maximale KVM-Geschwindigkeit
+    device = "/dev/vda"; 
   };
 
   # --- Standard VirtIO-Dateisystem für KVM-Gäste ---
@@ -33,9 +32,15 @@
     fsType = "ext4";
   };
 
-  # --- Spice & QEMU Guest Integration (Für verzögerungsfreie Desktop-Kopplung) ---
+  # --- Spice & QEMU Guest Integration ---
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true; 
+
+  # --- STRATEGIE-HEBEL: Grafischen Login komplett skippen (Auto-Login) ---
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "audit-user";
+  };
 
   # --- Die exakte, schlanke Audit-Toolbox (Strikt Passiv & Forensisch) ---
   environment.systemPackages = with pkgs; [
@@ -54,7 +59,7 @@
     package = pkgs.firefox-beta;
   };
 
-  # --- Benutzerverwaltung mit DEKLARATIVEM HASH (Passwort: 123456) ---
+  # --- Benutzerverwaltung ---
   users.users.audit-user = {
     isNormalUser = true;
     description = "Passive Forensic Auditor";
@@ -63,8 +68,6 @@
     homeMode = "0700"; 
     shell = pkgs.bashInteractive;
     extraGroups = [ "wheel" "networkmanager" "audio" "video" "wireshark" ];
-    # Der kryptografische SHA-512 Hash für das Passwort "123456"
-    hashedPassword = "$6$rounds=50000$GxGPixel1255$Yn7Hofm97T8O2C0I8uXg03tJ8b6V7e1.DskN84E9I5qKxD7y1vR3WJ9f0zVb6vX7wN9u8x2C0I8uXg03tJ8b6V.";
   };
 
   # --- Sicherheits-Infrastruktur für passive Scans ---
