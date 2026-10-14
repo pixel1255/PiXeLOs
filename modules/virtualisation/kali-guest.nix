@@ -52,6 +52,7 @@
   # --- Benutzerverwaltung ohne Konflikte (Mensch bleibt ROOT) ---
   users.users.audit-user = {
     isNormalUser = true;
+    initialPassword = "pixel";
     description = "Passive Forensic Auditor";
     home = "/home/audit-user";
     createHome = true;
