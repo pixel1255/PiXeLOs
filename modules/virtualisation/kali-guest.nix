@@ -15,6 +15,10 @@
   # --- Kapsel-Identität laut Roadmap ---
   networking.hostName = "pixel-lab-kali-audit";
   system.stateVersion = "24.11"; # Synchronisiert mit dem stabilen Host-Zustand
+  # --- Deutsches Tastaturlayout erzwingen ---
+  i18n.defaultLocale = "de_DE.UTF-8";
+  console.keyMap = "de";
+  services.xserver.xkb.layout = "de";
 
   # --- Bootvorgang für virtuelle Umgebungen ---
   boot.loader.grub = {
