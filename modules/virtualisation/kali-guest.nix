@@ -37,7 +37,7 @@
   services.spice-vdagentd.enable = true; 
 
   # --- STRATEGIE-HEBEL 1: Stabilen X11-Modus anstelle von Wayland erzwingen ---
-  services.displayManager.defaultSession = lib.mkForce "plasma-x11";
+  services.displayManager.defaultSession = lib.mkForce "plasmax11";
 
   # --- STRATEGIE-HEBEL 2: Grafischen Login komplett skippen (Auto-Login) ---
   services.displayManager.autoLogin = {
