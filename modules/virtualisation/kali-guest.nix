@@ -1,5 +1,5 @@
 ## ==============================================================================
-## MODULES/VIRTUALISATION/KALI-GUEST.NIX — DIE FORENSIK-KAPSEL (FORCE-AUTH FIX)
+## MODULES/VIRTUALISATION/KALI-GUEST.NIX — DIE FORENSIK-KAPSEL (ROOT-BYPASS FIX)
 ## Co-Created by Pixel1255 & Anti-Gravity Gemini (GxG-Prozess)
 ## ==============================================================================
 { config, pkgs, lib, ... }:
@@ -66,14 +66,14 @@
     homeMode = "0700"; 
     shell = pkgs.bashInteractive;
     extraGroups = [ "wheel" "networkmanager" "audio" "video" "wireshark" ];
-    
-    # DIESER HEBEL ERZWINGT DAS PASSWORT "p" BEIM ALLERERSTEN INITIALEN COMPILAT!
     initialPassword = "p"; 
   };
 
-  # --- EXTRA VM-VARIANTEN OVERRIDES FÜR REINE ENTWICKLUNGS-FREIGABE ---
+  # --- HÄRTUNG AUFHEBEN FÜR ERSTSTART: Erlaubt leeres Root-Passwort über TTY ---
+  users.users.root.initialPassword = "";
+
+  # --- EXTRA VM-VARIANTEN OVERRIDES ---
   virtualisation.vmVariant = {
-    # Erlaubt leere Passwörter und hebelt jegliche PAM-Sperren aus
     security.pam.sshAgentAuth.enable = true;
   };
 
