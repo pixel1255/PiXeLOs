@@ -36,6 +36,12 @@
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true; 
 
+  # --- DIE RETTUNG: Grafischen Login komplett skippen (Auto-Login) ---
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "audit-user";
+  };
+
   # --- Die exakte, schlanke Audit-Toolbox (Strikt Passiv & Forensisch) ---
   environment.systemPackages = with pkgs; [
     wireshark           # Grafische Netzwerk-Sonde
@@ -53,7 +59,7 @@
     package = pkgs.firefox-beta;
   };
 
-  # --- Benutzerverwaltung mit universellem Passwort-Gatter (Passwort: p) ---
+  # --- Benutzerverwaltung ---
   users.users.audit-user = {
     isNormalUser = true;
     description = "Passive Forensic Auditor";
@@ -62,8 +68,6 @@
     homeMode = "0700"; 
     shell = pkgs.bashInteractive;
     extraGroups = [ "wheel" "networkmanager" "audio" "video" "wireshark" ];
-    # Der unfehlbare kryptografische SHA-512 Hash für das Passwort "p"
-    hashedPassword = "$6$rounds=50000$GxGPixel1255$g6pA7AOfv1F7WJ9f0zVb6vX7wN9u8x2C0I8uXg03tJ8b6V7e1.DskN84E9I5qKxD7y1vR3WJ9f0zVb6vX7wN9u8x2C0I8uXg03tJ8b6V.";
   };
 
   # --- Sicherheits-Infrastruktur für passive Scans ---
