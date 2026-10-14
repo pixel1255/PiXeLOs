@@ -1,22 +1,27 @@
 # ==============================================================================
-# MODULES/SYSTEM/WIKI-ALIASES.NIX — INTELLIGENTE ERKLÄR-ALIASE & WIKI-TERMINAL
-# Co-Created by Pixel1255 & Zwillingsstern-KI (GxG-Prozess)
+# MODULES/SYSTEM/WIKI-ALIASES.NIX — SCHARFE STEUERUNGS-SONDEN FÜR DIE RECHTE KAPSEL
+# Co-Created by Pixel1255 & Anti-Gravity Gemini (GxG-Prozess)
 # ==============================================================================
 { config, pkgs, ... }:
 
 {
   environment.shellAliases = {
-    wiki = "${pkgs.ollama-cpu}/bin/ollama run phi3.5 'Du bist der abhörsichere PixelOS-Lab-Wächter. Erkläre mir den folgenden Befehl und jede seiner Zeilen/Optionen haargenau, mikro-chirurgisch, auf Deutsch und gib wertvolle Pentest-Tipps dazu: '";
-    status-lab = "echo '=== STATUS DER KAPSEL-TRESRE ===' && lsblk /dev/sdb && echo '=== STATUS DER systemd-DIENSTE ===' && systemctl status 'kvm-mini-*' --no-pager";
+    wiki = "${pkgs.ollama-cpu}/bin/ollama run phi3.5 'Du bist der abhörsichere PixelOS-Lab-Wächter. Erkläre mir den folgenden Befehl haargenau: '";
+    status-lab = "echo '=== KAPSEL-TRESOR ===' && lsblk /dev/sdb && echo '=== ACTIVE WORKSPACE GUESTS ===' && sudo virsh list --all";
     logs-firewall = "sudo tail -f /var/log/opensnitchd.log | jq .";
     
-    # Der ultimative Direkt-Start für deine fertige Appliance
-    lab = "cd ~/pixel-vm-native-build-104-v4VqdFWB && ./pixel-vm start";
+    # --- Direkt-Starter Host (Monitor 2 - Mitte) ---
+    lab     = "cd ~/pixel-vm-native-build-104-v4VqdFWB && nohup ./pixel-vm start >/dev/null 2>&1 & disown";
+    agy     = "nohup env LD_LIBRARY_PATH=/run/current-system/sw/lib opensnitch-ui >/dev/null 2>&1 & disown";
+    firefox = "nohup env LD_LIBRARY_PATH=/run/current-system/sw/lib firefox >/dev/null 2>&1 & disown";
+    dolphin = "nohup env LD_LIBRARY_PATH=/run/current-system/sw/lib dolphin >/dev/null 2>&1 & disown";
+    kate    = "nohup env LD_LIBRARY_PATH=/run/current-system/sw/lib kate >/dev/null 2>&1 & disown";
+    home    = "cd ~ && eza --icons --group-directories-first";
+    desktop = "cd ~/Schreibtisch 2>/dev/null || cd ~/Desktop && eza --icons --group-directories-first";
 
-    # Die libvirt/virsh Steuerungs-Sonden
-    hotspot-start   = "sudo virsh start pixel-lab-hotspot && virt-viewer -c qemu:///system pixel-lab-hotspot &";
-    hotspot-stop    = "sudo virsh shutdown pixel-lab-hotspot";
-    hotspot-console = "sudo virsh console pixel-lab-hotspot";
-    hotspot-status  = "sudo virsh dominfo pixel-lab-hotspot";
+    # --- DIE NEUEN STRATEGISCHEN KALI-KAPSEL BEFEHLE (Monitor 3 - Rechts) ---
+    kali-start   = "sudo virsh start pixel-lab-kali-audit && virt-viewer -c qemu:///system pixel-lab-kali-audit &";
+    kali-stop    = "sudo virsh shutdown pixel-lab-kali-audit";
+    kali-status  = "sudo virsh dominfo pixel-lab-kali-audit";
   };
 }
