@@ -9,7 +9,7 @@
 
   outputs = { self, nixpkgs }: { 
     
-    # --- DENE NEUE KAPSEL-KONFIGURATION [WELLE 2 FIX] ---
+    # --- DEINE NEUE KAPSEL-KONFIGURATION [WELLE 2] ---
     nixosConfigurations.kali-audit = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ ./modules/virtualisation/kali-guest.nix ];
@@ -18,10 +18,7 @@
     # --- DEIN COCKPIT-HOST (PIXEL1255) ---
     nixosConfigurations.pixel1255 = nixpkgs.lib.nixosSystem { 
       system = "x86_64-linux"; 
-      modules = [ 
-        ./host/configuration.nix 
-      ];
+      modules = [ ./host/configuration.nix ];
     };
-
   };
 }

@@ -34,11 +34,11 @@
 
   # --- Die exakte, schlanke Audit-Toolbox (Strikt Passiv & Forensisch) ---
   environment.systemPackages = with pkgs; [
-    wireshark        # Grafische Netzwerk-Sonde für tiefe Paketanalysen
+    wireshark           # Grafische Netzwerk-Sonde für tiefe Paketanalysen (Unstable-Name gefixt!)
     tshark              # CLI-Netzwerk-Sniffer für die automatisierte Überwachung
     nmap                # Port-Scanner für passive OS- und Versions-Scans (-sV, -O)
     testssl             # Zertifikats- und Protokoll-Prüfer für TLS-Audits
-    kdePackages.kate                # Editor für Skript-Strukturierungen
+    kdePackages.kate    # Editor für Skript-Strukturierungen (Plasma 6 Namensgatter gefixt!)
     chromium            # Isoliertes Chrome-Gatter für Gegenprüfungen
     obsidian            # Deine lokale Wissensdatenbank für die Vorfall-Dokumentation
   ];
