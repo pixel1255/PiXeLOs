@@ -1,23 +1,27 @@
 # ==============================================================================
 # FLAKE.NIX — ZENTRALER EINSTIEGSPUNKT DER NIXOS-FLAKE
-# Co-Created by Pixel1255 & Zwillingsstern-KI (GxG-Prozess)
+# Co-Created by Pixel1255 & Anti-Gravity Gemini (GxG-Prozess)
 # ==============================================================================
 {
-  description = "PiXeL1255 Intel Main — Modularisierte System-Infrastruktur"; # Deklarative Kurzbeschreibung des gesamten Projekts
+  description = "PiXeL1255 Intel Main — Modularisierte System-Infrastruktur"; 
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Definiert das Quell-Repository für die Paketbasis (Rolling Release Unstable)
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; 
 
-  outputs = { self, nixpkgs }: { # Definiert die Ausgabestrukturen, die aus den Inputs generiert werden
-      kali-audit = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ ./modules/virtualisation/kali-guest.nix ];
-      };
+  outputs = { self, nixpkgs }: { 
+    
+    # --- DENE NEUE KAPSEL-KONFIGURATION [WELLE 2 FIX] ---
+    nixosConfigurations.kali-audit = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [ ./modules/virtualisation/kali-guest.nix ];
+    };
 
-    nixosConfigurations.pixel1255 = nixpkgs.lib.nixosSystem { # Erzeugt die spezifische Systemkonfiguration für den Hostnamen 'pixel1255'
-      system = "x86_64-linux"; # Fixiert die Zielarchitektur auf klassische 64-Bit Intel/AMD physische Hardware
-      modules = [ # Array der primären Konfigurationsmodule, die geladen werden müssen
-        ./host/configuration.nix # Verweist auf den Hauptdirigenten, der alle Sub-Module und Kategorien zusammenzieht
+    # --- DEIN COCKPIT-HOST (PIXEL1255) ---
+    nixosConfigurations.pixel1255 = nixpkgs.lib.nixosSystem { 
+      system = "x86_64-linux"; 
+      modules = [ 
+        ./host/configuration.nix 
       ];
     };
+
   };
 }
