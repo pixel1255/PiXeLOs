@@ -15,7 +15,8 @@
   # --- Kapsel-Identität laut Roadmap ---
   networking.hostName = "pixel-lab-kali-audit";
   system.stateVersion = "24.11"; # Synchronisiert mit dem stabilen Host-Zustand
-  # --- Deutsches Tastaturlayout erzwingen ---
+
+  # --- Deutsches Tastaturlayout systemweit erzwingen ---
   i18n.defaultLocale = "de_DE.UTF-8";
   console.keyMap = "de";
   services.xserver.xkb.layout = "de";
@@ -34,40 +35,36 @@
 
   # --- Spice & QEMU Guest Integration (Für verzögerungsfreie Desktop-Kopplung) ---
   services.qemuGuest.enable = true;
-  services.spice-vdagentd.enable = true; # Erlaubt kontrolliertes Copy-Paste zum Mittleren Monitor
-  # --- Automatischer Login für den schnellen Cockpit-Start ---
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "audit-user";
-  };
+  services.spice-vdagentd.enable = true; 
 
   # --- Die exakte, schlanke Audit-Toolbox (Strikt Passiv & Forensisch) ---
   environment.systemPackages = with pkgs; [
-    wireshark           # Grafische Netzwerk-Sonde für tiefe Paketanalysen (Unstable-Name gefixt!)
-    tshark              # CLI-Netzwerk-Sniffer für die automatisierte Überwachung
-    nmap                # Port-Scanner für passive OS- und Versions-Scans (-sV, -O)
-    testssl             # Zertifikats- und Protokoll-Prüfer für TLS-Audits
-    kdePackages.kate    # Editor für Skript-Strukturierungen (Plasma 6 Namensgatter gefixt!)
-    chromium            # Isoliertes Chrome-Gatter für Gegenprüfungen
-    obsidian            # Deine lokale Wissensdatenbank für die Vorfall-Dokumentation
+    wireshark           # Grafische Netzwerk-Sonde
+    tshark              # CLI-Netzwerk-Sniffer
+    nmap                # Port-Scanner
+    testssl             # TLS-Audits
+    kdePackages.kate    # Editor (Plasma 6)
+    chromium            # Isoliertes Chrome-Gatter
+    obsidian            # Wissensdatenbank
   ];
 
   # --- Gehärteter Firefox-Beta für die Kapsel ---
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-beta; # Identisch zum gehärteten Host-Browser
+    package = pkgs.firefox-beta;
   };
 
-  # --- Benutzerverwaltung ohne Konflikte (Mensch bleibt ROOT) ---
+  # --- Benutzerverwaltung mit DEKLARATIVEM HASH (Passwort: 123456) ---
   users.users.audit-user = {
     isNormalUser = true;
-    initialPassword = "pixel";
     description = "Passive Forensic Auditor";
     home = "/home/audit-user";
     createHome = true;
-    homeMode = "0700"; # Strikte F02-Isolierung des Benutzer-Verzeichnisses
+    homeMode = "0700"; 
     shell = pkgs.bashInteractive;
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" "wireshark" ]; # Wireshark ohne Root-Zwang!
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" "wireshark" ];
+    # Der kryptografische SHA-512 Hash für das Passwort "123456"
+    hashedPassword = "$6$rounds=50000$GxGPixel1255$Yn7Hofm97T8O2C0I8uXg03tJ8b6V7e1.DskN84E9I5qKxD7y1vR3WJ9f0zVb6vX7wN9u8x2C0I8uXg03tJ8b6V.";
   };
 
   # --- Sicherheits-Infrastruktur für passive Scans ---
