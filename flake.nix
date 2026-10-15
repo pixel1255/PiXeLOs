@@ -14,11 +14,6 @@
       system = "x86_64-linux";
       modules = [ 
         ./modules/virtualisation/kali-guest.nix 
-        # DAS MITGELIEFERTE ENTWICKLER-GATTER: Erzwingt das Passwort "p" für alle VM-Instanzen!
-        ({ pkgs, ... }: {
-          users.users.audit-user.password = "p";
-          users.users.root.password = "p";
-        })
       ];
     };
 
