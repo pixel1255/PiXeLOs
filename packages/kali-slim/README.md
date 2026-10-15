@@ -2,6 +2,10 @@
 
 Co-Created by Pixel1255, Anti-Gravity Gemini & ChatGPT (GxG-Prozess)
 
+Zweck und vereinbarter Nutzungsumfang stehen in
+[VERWENDUNGSZWECK.md](VERWENDUNGSZWECK.md). Diese Beschreibung kann auch
+als lesbare Begleitdatei neben der lokalen VM-Platte abgelegt werden.
+
 Die Flake baut den QEMU-Starter und stellt einen nach SHA256 festgelegten
 offiziellen Kali-NetInstaller bereit. Der Gast wird mit dem Kali-Installer
 installiert. Ein reproduzierbarer Nix-Starter bedeutet dabei nicht, dass die
@@ -10,9 +14,8 @@ spaeter von Kali Rolling geladenen Pakete unveraenderlich festgelegt sind.
 Die neue Funktion wird als additive Flake-Ausgabe eingebunden. Die bisherige
 Host-Konfiguration und der alte NixOS-Testgast `nixosConfigurations.kali-audit`
 werden durch diesen Patch nicht geaendert. Fuer echtes Kali ausschliesslich
-den neuen Starter `kali-slim` verwenden. Die alten Testpasswort-Definitionen
-und die 20 vorhandenen lokalen Commits sind vor einer Veroeffentlichung
-separat zu pruefen; dieser Patch behauptet keine Bereinigung der Git-Historie.
+den neuen Starter `kali-slim` verwenden. Die bestehende NixOS-Testkonfiguration
+ist eine separate Flake-Ausgabe und beschreibt nicht diesen Kali-Gast.
 
 ## Ressourcen und Grenzen
 
@@ -44,6 +47,36 @@ Er startet keine VM und laedt den Installer nicht herunter. Der separate
 Verhaltenstest ersetzt QEMU und die KVM-Zugriffspruefung durch Test-Doubles.
 Er prueft unter anderem Ueberschreibschutz, SHA256-Abbruch, Offline-Start,
 Ressourcen und die Ablehnung von Backing-Dateien. Er ist kein echter VM-Boottest.
+
+## Betrieb der installierten VM
+
+Vom Repository-Hauptverzeichnis aus, als normaler Host-Benutzer:
+
+```bash
+nix run .#kali-slim -- boot
+```
+
+Das ist der Standardstart ohne virtuelle Netzwerkkarte. Fuer bewusst
+gewaehlten Netzwerkzugriff die VM zuerst herunterfahren und anschliessend
+mit `nix run .#kali-slim -- boot-online` starten. In Kali ueber das
+Desktop-Menue herunterfahren. QEMU-GTK-Vollbild umschalten: Strg+Alt+F.
+
+Passwoerter werden im Gast verwaltet; `passwd` im Kali-Terminal aendert
+das Passwort des angemeldeten Kontos. Gast und Host haben getrennte Konten.
+
+Nach Git-Updates laesst sich die Zweckbeschreibung neben der bereits
+vorhandenen VM-Platte ablegen; folgenden Befehl im Repository ausfuehren:
+
+```bash
+install -m 0644 packages/kali-slim/VERWENDUNGSZWECK.md "$HOME/kali-audit-lab/kali-slim/VERWENDUNGSZWECK.md"
+```
+
+Git versioniert den Starter und die Dokumentation. Es sichert weder die
+installierte QCOW2-Platte noch nachtraegliche Aenderungen im Gast.
+
+Am 15.10.2026 wurden Installation, Boot und Anmeldung bis zum Xfce-Desktop
+auf dem NixOS-Host im gemeinsamen Durchlauf bestaetigt. Die Ursache des
+Anmeldefehlers der ersten Installation wurde nicht abschliessend bestimmt.
 
 ## Spaetere Installation, erst nach dem Review
 
