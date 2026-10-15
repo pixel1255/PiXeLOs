@@ -1,13 +1,14 @@
 # ==============================================================================
 # FLAKE.NIX — ZENTRALER EINSTIEGSPUNKT DER NIXOS-FLAKE
-# Co-Created by Pixel1255 & Anti-Gravity Gemini (GxG-Prozess)
+# Co-Created by Pixel1255, Anti-Gravity Gemini & ChatGPT (GxG-Prozess)
 # ==============================================================================
 {
   description = "PiXeL1255 Intel Main — Modularisierte System-Infrastruktur"; 
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; 
 
-  outputs = { self, nixpkgs }: { 
+  outputs = { self, nixpkgs }:
+    (import ./packages/kali-slim/outputs.nix { inherit self nixpkgs; }) // {
     
     # --- DENE NEUE KAPSEL-KONFIGURATION [WELLE 2 FIX] ---
     nixosConfigurations.kali-audit = nixpkgs.lib.nixosSystem {
