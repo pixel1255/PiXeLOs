@@ -91,12 +91,12 @@ if [[ "$action" == install ]]; then
   actual_hash=${actual_hash%% *}
   [[ "$actual_hash" == "$ISO_SHA256" ]] || fail 'Installer-Pruefsumme falsch; Start abgebrochen.'
   iso_qemu=${iso//,/,,}
-  extra_args=(-drive "file=$iso_qemu,media=cdrom,readonly=on" -boot order=d,menu=on -no-reboot)
+  extra_args=(-drive "file=$iso_qemu,media=cdrom,readonly=on" -boot "order=d,menu=on" -no-reboot)
 fi
 
 network_args=(-nic none)
 if [[ "$action" == install || "$action" == boot-online ]]; then
-  network_args=(-nic user,model=virtio-net-pci)
+  network_args=(-nic "user,model=virtio-net-pci")
 fi
 disk_qemu=${disk//,/,,}
 printf 'Starte Kali mit %s MiB RAM, %s CPUs; Modus: %s\n' "$VM_RAM_MIB" "$VM_CPUS" "$action"

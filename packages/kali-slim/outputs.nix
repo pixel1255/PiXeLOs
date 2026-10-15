@@ -15,6 +15,7 @@ in
   apps.${system}.kali-slim = {
     type = "app";
     program = "${kaliSlim}/bin/kali-slim";
+    meta.description = "Separate Kali-VM mit 4 GiB RAM und 30 GiB virtueller Platte";
   };
 
   # Nur den Starter und seine Schutzbedingungen testen. Kein VM-Start.
