@@ -1,13 +1,14 @@
 # ==============================================================================
-# FLAKE.NIX — ZENTRALER EINSTIEGSPUNKT DER NIXOS-FLAKE (MIT MASTER-KEY)
-# Co-Created by Pixel1255 & Anti-Gravity Gemini (GxG-Prozess)
+# FLAKE.NIX — HOST-KONFIGURATION UND SEPARATER KALI-STARTER
+# Co-Created by Pixel1255, Anti-Gravity Gemini & ChatGPT (GxG-Prozess)
 # ==============================================================================
 {
   description = "PiXeL1255 Intel Main — Modularisierte System-Infrastruktur"; 
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; 
 
-  outputs = { self, nixpkgs }: { 
+  outputs = { self, nixpkgs }:
+    (import ./packages/kali-slim/outputs.nix { inherit self nixpkgs; }) // {
     
     nixosConfigurations.kali-audit = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
