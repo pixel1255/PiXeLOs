@@ -14,7 +14,7 @@
   };
 
   # --- System-Pakete für die manuelle KI-Interaktion ---
-  environment.systemPackages = [ 
+  environment.systemPackages = [
     pkgs.ollama-cpu # CLI-Steuerungswerkzeug direkt für den Systempfad bereitstellen (ollama run)
   ];
 }

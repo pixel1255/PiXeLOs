@@ -13,14 +13,14 @@
   ];
 
   networking.hostName = "pixel-lab-kali-audit";
-  system.stateVersion = "24.11"; 
+  system.stateVersion = "24.11";
 
   console.keyMap = lib.mkForce "de-latin1";
   services.xserver.xkb.layout = lib.mkForce "de";
 
   boot.loader.grub = {
     enable = true;
-    device = "/dev/vda"; 
+    device = "/dev/vda";
   };
 
   fileSystems."/" = {
@@ -29,7 +29,7 @@
   };
 
   services.qemuGuest.enable = true;
-  services.spice-vdagentd.enable = true; 
+  services.spice-vdagentd.enable = true;
   services.displayManager.defaultSession = lib.mkForce "plasmax11";
 
   environment.systemPackages = with pkgs; [
@@ -47,7 +47,7 @@
     description = "Passive Forensic Auditor";
     home = "/home/audit-user";
     createHome = true;
-    homeMode = "0700"; 
+    homeMode = "0700";
     shell = pkgs.bashInteractive;
     extraGroups = [ "wheel" "networkmanager" "audio" "video" "wireshark" ];
   };
