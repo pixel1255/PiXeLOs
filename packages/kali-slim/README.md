@@ -50,6 +50,11 @@ Ressourcen und die Ablehnung von Backing-Dateien. Er ist kein echter VM-Boottest
 
 ## Betrieb der installierten VM
 
+Nach dem Host-Rebuild steht in einer neuen Bash der Alias `kali` bereit.
+Er startet die vorhandene Kali-Platte offline. Der Starter ist als Nix-Paket
+im Benutzerprofil eingebunden; ein Aufruf ueber den Git-Checkout ist fuer
+`kali` nicht erforderlich. Startmeldungen bleiben im Terminal sichtbar.
+
 Vom Repository-Hauptverzeichnis aus, als normaler Host-Benutzer:
 
 ```bash

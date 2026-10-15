@@ -1,9 +1,12 @@
 ## ==============================================================================
 ## MODULES/USERS/PIXEL1255.NIX — HOST USER-IDENTITÄT & REPARIERTE COCKPIT-NAV
-## Co-Created by Pixel1255 & Zwillingsstern-KI (GxG-Prozess)
+## Co-Created by Pixel1255, Anti-Gravity Gemini & ChatGPT (GxG-Prozess)
 ## ==============================================================================
 { config, pkgs, ... }:
 
+let
+  kaliSlim = pkgs.callPackage ../../packages/kali-slim { };
+in
 {
   # --- Haupt-Benutzerkonto Konfiguration ---
   users.users.pixel1255 = {
@@ -11,7 +14,7 @@
     description = "PiXeL1255 OS Architect";
     extraGroups = [ "wheel" "networkmanager" "audio" "video" "kvm" "libvirtd" ];
     homeMode = "0700";
-    packages = with pkgs; [ eza ];
+    packages = with pkgs; [ eza kaliSlim ];
   };
 
   # --- Terminal-Branding & Interaktive Funktionen ---
@@ -33,6 +36,7 @@ LOGO
       echo -e " \e[1;32mupdate\e[0m     : System-Update & Rebuild (Gold-Modus)"
       echo -e " \e[1;32mcleanup\e[0m    : Müll löschen, Store optimieren & RAM leeren"
       echo -e " \e[1;32mlab\e[0m        : Direkt-Start der fertigen Hotspot-Appliance-VM"
+      echo -e " \e[1;32mkali\e[0m       : Kali-Kapsel starten (offline)"
       echo -e " \e[1;32magy\e[0m        : Anti-Gravity — OpenSnitch Firewall GUI aufrufen"
       echo -e " \e[1;32mls / ll\e[0m    : Modernes Listing (eza) mit Icons"
       echo -e " \e[1;32mtree\e[0m       : Verzeichnisstruktur als Baum anzeigen"
@@ -49,6 +53,7 @@ LOGO
 
   # --- Aliase für Effizienz (Mit erzwungener System-Bibliotheken-Kopplung) ---
   programs.bash.shellAliases = {
+    kali = "${kaliSlim}/bin/kali-slim boot";
     update = "sudo nixos-rebuild switch --flake /etc/nixos/#pixel1255";
     cleanup = "sudo sync; echo 3 | sudo tee /proc/sys/vm/drop_caches && nix-collect-garbage --delete-older-than 7d";
     lab = "cd ~/pixel-vm-native-build-104-v4VqdFWB && nohup ./pixel-vm start >/dev/null 2>&1 & disown";
