@@ -32,7 +32,7 @@
         echo -e "\e[1;31m[WÄCHTER]: Kein Befehl übergeben! Nutzung: wiki <befehl>\e[0m"
         return 1
       fi
-      # Reicht alle Argumente ($*) als sauberen, geschützten Text-String an Ollama weiter!
+      # Übergibt den Text als Prompt an den konfigurierten Ollama-Dienst; keine Geheimnisse angeben.
       ${pkgs.ollama-cpu}/bin/ollama run phi3.5 "Du bist der abhörsichere PixelOS-Lab-Wächter. Erkläre mir den folgenden Befehl haargenau, mikro-chirurgisch, auf Deutsch und gib wertvolle Pentest-Tipps dazu: $*"
     }
   '';

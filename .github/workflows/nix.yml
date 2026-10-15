@@ -1,0 +1,42 @@
+name: PiXeLOs CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches:
+      - main
+      - "final/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nix-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  nix-checks:
+    name: Flake and Kali-Slim checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@448cde739abec1eaf0646249e3d25bb8d9bc7702 # v31.11.2
+        with:
+          enable_kvm: false
+
+      - name: Evaluate flake
+        run: nix flake check --no-build --no-update-lock-file
+
+      - name: Build starter and behavior check
+        run: nix build --no-link --no-update-lock-file -L .#kali-slim .#checks.x86_64-linux.kali-slim-behaviour
+
+      - name: Check app wiring without starting a VM
+        run: nix run --no-update-lock-file .#kali-slim -- help
+
+      - name: Run launcher unit tests
+        run: python3 packages/kali-slim/test_launcher.py packages/kali-slim/launcher.sh

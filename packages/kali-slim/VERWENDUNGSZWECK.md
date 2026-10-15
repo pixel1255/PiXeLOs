@@ -71,7 +71,11 @@ nix run "$HOME/pixelos-kali-publish#kali-slim" -- boot
 Für Netzwerkzugriff die laufende VM erst regulär herunterfahren und dann
 ausdrücklich `boot-online` statt `boot` wählen. Herunterfahren erfolgt
 über das Kali-Desktop-Menü. Strg+Alt+F schaltet QEMU-GTK-Vollbild um.
-Das Kontopasswort wird im Kali-Terminal mit `passwd` geändert.
+QEMU-GTK benötigt auf dem Host eine grafische Sitzung; Headless-Betrieb und
+ein SPICE-Endpunkt sind nicht konfiguriert. Die alten Aliasse
+`kali-start`, `kali-stop` und `kali-status` steuern weiterhin die getrennte
+Libvirt-Testdomain `pixel-lab-kali-audit`. Das Kontopasswort wird im
+Kali-Terminal mit `passwd` geändert.
 
 ## Was Git festhält
 
@@ -85,7 +89,10 @@ Nach Änderungen an der Repository-Datei die lokale Kopie aktualisieren.
 Git dokumentiert Starter, Einstellungen, Prüfungen und Nutzungszweck.
 Die laufende Installation, ihre Daten und später installierte Gastpakete
 liegen in der VM-Platte. Diese Platte benötigt eine gesonderte Sicherung
-bei ausgeschalteter VM. Zugangsdaten und private Analyseaufzeichnungen
+bei ausgeschalteter VM. Beende Kali und alle QEMU-Prozesse, die die Platte
+verwenden, bevor du sie kopierst; die Starter-Sperre koordiniert nur
+Prozesse, die dieselbe `.lock`-Datei verwenden. Prüfe die Sicherung mit
+`sha256sum` gegen das Original. Zugangsdaten und private Analyseaufzeichnungen
 gehören nicht in das öffentliche Repository.
 
 Der Installer ist per SHA256 festgelegt. Später aus Kali Rolling geladene
