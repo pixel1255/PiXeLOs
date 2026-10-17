@@ -1,0 +1,18 @@
+title: R01
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\\powershell.exe'
+    CommandLine|contains: 'FromBase64String'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate administrative script usage
+level: medium
