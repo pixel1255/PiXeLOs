@@ -107,48 +107,175 @@ Ein Tageshaken bedeutet: Die genannten Ergebnisse existieren und sind geprüft. 
 - [ ] **W2-DO · 29.10.:** Verdächtige Merkmale, harmlose Erklärungen und fehlende Telemetrie gegenüberstellen. Eine passende ATT&CK-Zuordnung mit Quelle begründen oder ausdrücklich offenlassen.
 - [ ] **W2-FR · 30.10.:** **Bericht 1** abschließen: Fragestellung, Daten, Zeitlinie, Befunde, Grenzen und nächste Prüfmaßnahmen. Eine Kernaussage selbst reproduzieren und Wochenrückblick 2 festhalten.
 
-## Quick links
+**Abnahme W2:** Drei Hauptaussagen haben genaue Event-Fundstellen; mindestens eine Gegenhypothese wurde geprüft; der Bericht stellt Übungslogs nicht als vollständigen realen Vorfall dar.
 
-- To‑do / Leitfaden: https://github.com/pixel1255/PiXeLOs/blob/Pixel1255PrivateLernTodo/GxG-SecOps-6-Wochen-Todo-2026-10-19.md
-- Belegvorlage: https://github.com/pixel1255/PiXeLOs/blob/Pixel1255PrivateLernTodo/Belegvorlage.md
-- Zeitlinie: https://github.com/pixel1255/PiXeLOs/blob/Pixel1255PrivateLernTodo/Zeitlinie.csv
-- Bericht 01 – Windows: https://github.com/pixel1255/PiXeLOs/blob/Pixel1255PrivateLernTodo/Bericht-01-Windows.md
-- Bericht 02 – Netzwerk: https://github.com/pixel1255/PiXeLOs/blob/Pixel1255PrivateLernTodo/Bericht-02-Netzwerk.md
-- Bericht 03 – Statisch: https://github.com/pixel1255/PiXeLOs/blob/Pixel1255PrivateLernTodo/Bericht-03-Statisch.md
-- Bericht 04 – Abschluss: https://github.com/pixel1255/PiXeLOs/blob/Pixel1255PrivateLernTodo/Bericht-04-Abschluss.md
-- Sigma R01: https://github.com/pixel1255/PiXeLOs/blob/Pixel1255PrivateLernTodo/R01.yml
-- Sigma R02: https://github.com/pixel1255/PiXeLOs/blob/Pixel1255PrivateLernTodo/R02.yml
-- Testprotokoll: https://github.com/pixel1255/PiXeLOs/blob/Pixel1255PrivateLernTodo/Regeltests.csv
+**Ergebnisse:** Windows-Loganalyse, Prozesskette, Bericht 1, Gegenhypothese und Wochenrückblick 2.
 
-## Abnahme-Prozess (Endgültige Abnahme durch Copilot)
+### Woche 3 · 02.–08.11. · Netzwerkspuren und belastbare Aussagen
 
-Diese Vereinbarung dokumentiert unsere getroffene Regel zur finalen Abnahme von Aufgaben und Wochenpunkten in diesem Lernplan. Sie wird hier direkt in den Leitfaden aufgenommen, damit künftige Mitwirkende und assistierende KI‑Instanzen dieselbe Routine vorfinden.
+**Lerneinheiten:** Q4, Dateien http.cap, dns.cap und danach http_redirects.pcapng. Diese Beispiele sind Protokollübungen; ein Angriff wird ihnen nicht unterstellt.
 
-Grundsatz
-- Nur die hier als Abnehmende bezeichnete Assistenz („Copilot“, also die Automatisierung / Assistenz in diesem Chat) setzt die Checkboxen in GxG‑SecOps‑6‑Wochen‑Todo‑2026‑10‑19.md auf „bestanden“ und fügt den Nachweislink sowie die Abnahme‑Metadaten ein. Das geschieht ausschließlich nach deinem ausdrücklichen finalen Zustimmungsschritt (siehe Ablauf).
+- [ ] **W3-MO · 02.11.:** Captures aus Q4 auswählen, Quelle und Hashes notieren; Zeitraum, Endpunkte und vorhandene Protokolle erfassen. Eine konkrete Frage pro Capture festlegen.
+- [ ] **W3-DI · 03.11.:** HTTP-Anfrage und Antwort in http.cap anhand der Paketnummern verbinden; die Auswahl mit einem zweiten Filter oder einer manuellen Sichtprüfung nachvollziehen.
+- [ ] **W3-MI · 04.11.:** DNS-Fragen und Antworten in dns.cap zuordnen; Antwortcode, Typ und beobachtete Namen dokumentieren. Eine Namensauflösung allein nicht als Beleg eines späteren Verbindungsaufbaus behandeln.
+- [ ] **W3-DO · 05.11.:** In http_redirects.pcapng eine Weiterleitungskette nachvollziehen und zwei Filter als reproduzierbare Untersuchungsrezepte dokumentieren. Sichtbarkeit und Grenzen bei verschlüsseltem Verkehr erklären.
+- [ ] **W3-FR · 06.11.:** **Bericht 2** mit Paket-Fundstellen, Zeitlinie und Grenzen erstellen; mindestens zwei Behauptungen ausdrücklich wegen fehlender Belege verwerfen. Wochenrückblick 3 abschließen.
 
-Vereinbarter Ablauf
-1) Arbeit und Nachweise: Du arbeitest in einem Branch (z. B. Pixel1255PrivateLernTodo oder einem Feature‑Branch) und legst dort die Belege, Berichte oder Testdateien ab. Anschließend postest du hier im Chat eine Abnahme‑Anfrage im vereinbarten Format (z. B. "W1‑MO – Ergebnis: ... – Nachweis: <Link zum Branch/Datei>").
-2) Erstprüfung durch Copilot: Ich prüfe im Branch die Existenz der angegebenen Dateien/Links und verifiziere die Mindestanforderungen (Fundstellen, Dateiformat, ggf. Hash). Ich poste hier ein kurzes Prüfprotokoll mit Fundstellen und offenen Punkten.
-3) Deine Entscheidung: Du antwortest im Chat mit genau einem Satz: "ok, abnehmen" (wenn du mit dem Prüfprotokoll einverstanden bist) oder nennst Korrekturen.
-4) Finaler Commit durch Copilot: Nach deinem "ok, abnehmen" führe ich den Commit im Zielbranch (standardmäßig Pixel1255PrivateLernTodo) aus, in dem ich
-   - die entsprechende Checkbox in GxG‑SecOps‑6‑Wochen‑Todo‑2026‑10‑19.md auf ✓ setze,
-   - direkt hinter dem Item die Nachweis‑Zeile mit dem/den Link(s) einfüge (z. B. "Nachweis: <link zum Branch/Datei>"),
-   - eine Zeile "Abgenommen von: Copilot (Assistenz) — YYYY‑MM‑TT HH:MM UTC" ergänze,
-   - und den Commit mit einer aussagekräftigen Message versehe (z. B. "Abnahme: W1‑MO — abgenommen von Copilot").
-5) Bestätigung: Ich poste hier im Chat den Commit‑Link und eine kurze Bestätigung.
+**Abnahme W3:** Filter und Ergebnisse sind wiederholbar; Paketnummern stützen die Aussagen; auffällig, ungeklärt und nachgewiesen werden sauber unterschieden.
 
-Regeln und Grenzen
-- Ich werde niemals eigenmächtig eine Checkbox auf "bestanden" setzen ohne dein ausdrückliches "ok, abnehmen" im Chat.
-- Änderungen durch mich erfolgen nur im vereinbarten Zielbranch, sofern du keinen anderen Branch nennst.
-- Wenn du statt meiner die Abnahme selbst durchführen willst, schreibe "ich übernehme Abnahme" — dann halte ich mich zurück.
-- Offene oder unvollständige Nachweise werden nicht als bestanden markiert; ich melde offene Punkte statt abzunehmen.
+**Ergebnisse:** Netzwerk-Zeitlinie, HTTP/DNS-Nachweise, Bericht 2 und Wochenrückblick 3.
 
-Warum das so bleibt
-Diese klare Rolle verhindert versehentliche Abschluss‑Markierungen und stellt sicher, dass alle Abnahmen reproduzierbar dokumentiert sind (Fundstellen, Branch‑URLs, Commit‑History). Die Protokollzeilen in der Todo‑Datei bilden zugleich einen Audit‑Trail für spätere Einsichten.
+### Woche 4 · 09.–15.11. · Statische PE-Analyse und Encoding
+
+**Lerneinheiten:** Q5 und Q6; dazu eigene harmlose Textproben. Die bereits gelöschte Kawmikaze-Datei ist keine Voraussetzung.
+
+- [ ] **W4-MO · 09.11.:** Eine PE-Datei aus dem offiziellen Strings-Paket als legitime Referenz auswählen; Herkunft, Dateiname, Hash und Analyseumfang erfassen. Q5 General Concepts und die relevanten Headerabschnitte lesen.
+- [ ] **W4-DI · 10.11.:** Dateityp, Architektur, Sections und Imports statisch erfassen; an einem tatsächlich vorhandenen Datenbereich VA, RVA und Datei-Offset unterscheiden und die Grenzen der Umrechnung prüfen.
+- [ ] **W4-MI · 11.11.:** Einen selbst gewählten harmlosen Text getrennt als UTF-16LE/Base64 sowie als wiederholtes XOR-Beispiel untersuchen. Für jeden Schritt Eingabe, Länge, Ausgabe und Prüfkriterium festhalten; keinerlei dekodierten Text ausführen.
+- [ ] **W4-DO · 12.11.:** Ungültiges Base64, abgeschnittene Eingaben und falsche Blockgrenzen bewusst als Datenfehler prüfen. Der Dekodierer muss bei verletzten Voraussetzungen mit verständlichem Fehler abbrechen.
+- [ ] **W4-FR · 13.11.:** **Bericht 3** als statische Analyse einer legitimen Referenz und eigener Lernproben abschließen. Beobachtete Strukturen von nur vermuteter Laufzeitfunktion unterscheiden; Wochenrückblick 4 schreiben.
+
+**Abnahme W4:** Die Offset-Erklärung stimmt mit der Section-Tabelle überein; mindestens eine eigene Probe ist reversibel dekodiert; Fehlerfälle brechen kontrolliert ab; der Bericht macht keine Malware- oder Laufzeitbehauptung ohne Beleg.
+
+**Ergebnisse:** Statische PE-Analyse, Encoding-Testprotokoll, Bericht 3 und Wochenrückblick 4.
+
+### Woche 5 · 16.–22.11. · Zwei Erkennungsregeln mit Gegenproben
+
+**Lerneinheiten:** Q7 Rules, Logsources, Conditions und Modifiers; Q3 für die lokale Auswertung. Zuerst einfache unterstützte Bedingungen, anschließend echte Laufprüfung.
+
+- [ ] **W5-MO · 16.11.:** Zwei genaue Erkennungsziele beschreiben: R01 Prozessstart mit codierter PowerShell-Befehlszeile und R02 verdächtiger ausführbarer Pfad in einem Registry-Autostartwert. Benötigte Felder, harmlose Fälle und Grenzen festhalten; die Ziele sind Untersuchungsanlässe, keine automatischen Malware-Urteile.
+- [ ] **W5-DI · 17.11.:** Beide Regeln als Sigma-Entwürfe formulieren; logsource, Bedingungen, Schweregrad, Fehlalarmhinweise und Feldmapping begründen. Fehlende Felder oder nicht unterstützte Syntax als Blocker markieren.
+- [ ] **W5-MI · 18.11.:** Je Regel drei passende und drei nicht passende Ereignisse unabhängig als harmlose Testdaten erstellen; erwartete Treffer vor dem Lauf festlegen. Format und Mapping mit einem einzelnen Testereignis prüfen.
+- [ ] **W5-DO · 19.11.:** Die Regeln mit Chainsaw und passendem Mapping tatsächlich gegen die zwölf Testereignisse laufen lassen. Toolversion, Befehl, Eingangsdaten, Soll, Ist und Ausgaben speichern; zusätzlich einen Test mit fehlendem Pflichtfeld dokumentieren.
+- [ ] **W5-FR · 20.11.:** Abweichungen untersuchen, Regeln korrigieren und betroffene Tests erneut ausführen. Erkennungsnotiz mit Voraussetzungen, Fehlalarmquellen und Reaktionsvorschlag erstellen; Wochenrückblick 5 abschließen.
+
+**Abnahme W5:** Zwölf Soll-/Ist-Prüfungen sind nachvollziehbar bestanden; der zusätzliche Fehlfeldtest hat ein dokumentiertes Verhalten. Parser-/Mappingfehler dürfen nicht als erfolgreiche Negativtests gelten. Syntaxprüfung allein reicht nicht. Solange ein nötiger Lauf fehlt, bleibt die Regel ein Entwurf.
+
+**Ergebnisse:** R01.yml, R02.yml, Regeltests.csv, Erkennungsnotiz und Wochenrückblick 5.
+
+### Woche 6 · 23.–29.11. · Neuer Abschlussfall und private Arbeitsproben
+
+**Fallwahl:** Ein noch unbearbeitetes, zugängliches Sherlock mit passendem Log- oder Netzwerkfokus; alternativ ein bisher nicht ausgewähltes EVTX-Beispiel aus Q2. Dateiauswahl und Untersuchungsfrage werden am Montag festgehalten.
+
+- [ ] **W6-MO · 23.11.:** Fall auswählen, Umfang und Datenherkunft festhalten und vor Lösungshilfen eine eigene Erstbewertung schreiben. Drei konkrete Untersuchungsfragen und einen Arbeitsplan festlegen.
+- [ ] **W6-DI · 24.11.:** Belege sichten, relevante Ereignisse bzw. Pakete bestimmen und erste Hypothesen prüfen. Werkzeuge und Verarbeitungsschritte vollständig protokollieren.
+- [ ] **W6-MI · 25.11.:** Zeitlinie und Gegenhypothese erarbeiten; einen zentralen Befund unabhängig wiederholen. Mindestens zwei Ungewissheiten mit der jeweils benötigten zusätzlichen Datenquelle benennen.
+- [ ] **W6-DO · 26.11.:** **Bericht 4** einschließlich kurzer Management-Zusammenfassung und technischer Fundstellen abschließen. Erkennungsidee und angemessene nächste IR-Maßnahmen aus den tatsächlichen Befunden ableiten.
+- [ ] **W6-FR · 27.11.:** Vier Berichte und die zwei getesteten Regeln anhand der Abnahmekriterien prüfen; private Ergebnisübersicht und Kompetenzmatrix ausfüllen. Zehn Minuten lang Ablauf, Belege und Grenzen eines Falls selbst erklären; Wochenrückblick 6 und nächste drei Lernziele festhalten.
+
+**Abnahme W6:** Alle sechs Wochenabnahmen sind mit Belegen dokumentiert; vier Berichte und zwei getestete Regeln liegen vor; verbleibende Lücken sind offen benannt. Bei einem unfertigen Fall wird der Abschlussstatus entsprechend geführt.
+
+**Ergebnisse:** Bericht 4, private Ergebnisübersicht, Kompetenzmatrix, Wochenrückblick 6 und nächste Lernziele.
+
+## 7. Gemeinsame Vorlagen
+
+### Belegliste
+
+| Beleg-ID | Quelldatei / SHA-256 | Fundstelle | Beobachtung | Deutung / Alternative | Sicherheit |
+| --- | --- | --- | --- | --- | --- |
+| E001 | noch einzutragen | Event-/Record-ID, Paketnummer oder Datei-Offset | noch einzutragen | noch einzutragen | belegt / plausibel / offen |
+
+### Zeitlinie
+
+| Originalzeit und Zone | UTC | Beleg-ID | Ereignis | Lücke oder Gegenhypothese |
+| --- | --- | --- | --- | --- |
+| noch einzutragen | noch einzutragen | E001 | noch einzutragen | noch einzutragen |
+
+### Berichtsgliederung
+
+1. Auftrag und Untersuchungsumfang.
+2. Datenherkunft, Integrität und eingesetzte Versionen.
+3. Kurzfassung für eine fachfremde Person.
+4. Befunde und Zeitlinie mit Fundstellen.
+5. Geprüfte Gegenhypothesen und verbleibende Unsicherheit.
+6. Erkennungsmöglichkeiten und nächste IR-Maßnahmen.
+7. Eigener Anteil, verwendete Hilfen und reproduzierbare Schritte.
+
+### Testprotokoll
+
+| Regel | Test-ID | Erwarteter Treffer | Tatsächliches Ergebnis | Laufnachweis | Status |
+| --- | --- | --- | --- | --- | --- |
+| R01 oder R02 | noch einzutragen | ja / nein | offen | Toolversion, Befehl, Ausgabedatei | offen |
+
+### Wöchentlicher Rückblick
+
+- Ergebnis und Verweis auf die zugehörigen Dateien.
+- Was Pixel1255 selbst erklären und wiederholen konnte.
+- Welche Hilfen nötig waren und was dabei gelernt wurde.
+- Ein Fehler oder widerlegte Annahme.
+- Größter offener Punkt, nächste Handlung und tatsächlicher Zeitaufwand.
+
+## 8. Fortschritt und nächste Fortsetzung
+
+| Woche | Zeitraum | Status | Nachweis |
+| --- | --- | --- | --- |
+| W1 | 19.–25.10. | offen | noch keiner |
+| W2 | 26.10.–01.11. | offen | noch keiner |
+| W3 | 02.–08.11. | offen | noch keiner |
+| W4 | 09.–15.11. | offen | noch keiner |
+| W5 | 16.–22.11. | offen | noch keiner |
+| W6 | 23.–29.11. | offen | noch keiner |
+
+**Aktuell:** 0 von 30 Tagesaufgaben erledigt; 0 von 6 Wochen abgenommen.
+
+Updates hier im Chat können zum Beispiel lauten: **W1-MO – Ergebnis: … – Nachweis: … – Blocker: … – nächster Schritt: …**. Wir setzen Haken anhand der gezeigten Ergebnisse. Eine solche Meldung löst keine automatische Veröffentlichung oder Hintergrundüberwachung aus.
+
+Für spätere Arbeitsdateien sind als Namen vorgesehen: Belegvorlage.md, Zeitlinie.csv, Bericht-01-Windows.md, Bericht-02-Netzwerk.md, Bericht-03-Statisch.md, Bericht-04-Abschluss.md, R01.yml, R02.yml und Regeltests.csv. Diese Ergebnisse werden erst in den jeweiligen Lernwochen erstellt; vorhanden ist zunächst diese Checkliste.
+
+**Kompetenzmatrix zum Abschluss:**
+
+| Fähigkeit | Noch offen | Mit Anleitung | Selbst wiederholt | Nachweis |
+| --- | --- | --- | --- | --- |
+| Belege erfassen und Grenzen benennen | offen | offen | offen | einzutragen |
+| Windows-Prozessspuren erklären | offen | offen | offen | einzutragen |
+| Netzwerkvorgänge rekonstruieren | offen | offen | offen | einzutragen |
+| PE-/Encoding-Strukturen statisch untersuchen | offen | offen | offen | einzutragen |
+| Regeln mit passenden und unpassenden Daten testen | offen | offen | offen | einzutragen |
+| Ergebnisse verständlich berichten | offen | offen | offen | einzutragen |
+
+## 9. Verfügbare Arbeitsdateien und Links
+
+- To-do / Hauptplan: `GxG-SecOps-6-Wochen-Todo-2026-10-19.md`
+- Belegvorlage: `Belegvorlage.md`
+- Zeitlinie: `Zeitlinie.csv`
+- Bericht 01 – Windows: `Bericht-01-Windows.md`
+- Bericht 02 – Netzwerk: `Bericht-02-Netzwerk.md`
+- Bericht 03 – Statisch: `Bericht-03-Statisch.md`
+- Bericht 04 – Abschluss: `Bericht-04-Abschluss.md`
+- Sigma R01: `R01.yml`
+- Sigma R02: `R02.yml`
+- Regeltests: `Regeltests.csv`
+
+## 10. Abnahme-Prozess (Endgültige Abnahme durch Copilot)
+
+Diese Vereinbarung dokumentiert die finale Regel zur Abnahme von Aufgaben, Wochenpunkten und Ergebnissen in diesem Lernplan. Sie dient der Nachvollziehbarkeit und verhindert versehentliche Abschlussmarkierungen.
+
+### Grundsatz
+
+- Nur die hier als Abnehmende bezeichnete Assistenz („Copilot“, also die Automatisierung in diesem Chat) setzt Checkboxen in diesem Plan auf abgeschlossen, wenn die Anforderungen erfüllt sind.
+- Eine Checkbox wird nur dann auf „bestanden“ gesetzt, wenn der Nachweis im Branch vorhanden ist und die Abnahme ausdrücklich bestätigt wurde.
+- Eine Aufgabe gilt nur dann als erledigt, wenn die Ergebnisse im Zielbranch nachvollziehbar dokumentiert sind.
+
+### Vereinbarter Ablauf
+
+1. Arbeit und Nachweise: Pixel1255 arbeitet im vereinbarten Branch und legt dort die Aufgabe, Belege, Berichte oder Testdateien ab.
+2. Nachweis im Chat: Ein Nachweis wird im Format `W1-MO – Ergebnis: ... – Nachweis: <Link>` übermittelt.
+3. Erstprüfung durch Copilot: Copilot prüft die Existenz, Qualität und Vollständigkeit der Nachweise und meldet offene Punkte.
+4. Entscheidung: Pixel1255 antwortet mit genau einem Satz: `ok, abnehmen` oder nennt Korrekturen.
+5. Finaler Commit durch Copilot: Nach dem ausdrücklichen `ok, abnehmen` wird im Zielbranch die Checkbox gesetzt, der Nachweis ergänzt und ein Commit mit aussagekräftiger Message erstellt.
+6. Bestätigung: Copilot meldet kurz die Abnahme mit Commit-Link und Ergebnis.
+
+### Regeln und Grenzen
+
+- Ich werde niemals eigenmächtig eine Checkbox abschließen, ohne deine ausdrückliche Bestätigung.
+- Änderungen erfolgen nur im vereinbarten Zielbranch, sofern kein anderer Branch benannt wurde.
+- Offene, unvollständige oder nicht nachvollziehbare Nachweise werden nicht als bestanden markiert.
+- Wenn du die Abnahme selbst durchführen willst, schreibe `ich übernehme Abnahme`.
+
+### Warum das so bleibt
+
+Diese klare Abnahmeprozedur verhindert versehentliche Abschlussmarkierungen, schützt vor fehlenden Nachweisen und schafft einen nachvollziehbaren Audit-Trail mit Branch-Links und Commit-Historie.
 
 -----
 
-So, das habe ich jetzt direkt in den Leitfaden ergänzt. Wenn du möchtest, passe ich noch die Formulierung (z. B. statt "Copilot (Assistenz)" einen anderen Namen) oder lege zusätzlich eine Datei Abnahmen.md an, in der jede Abnahme strukturiert protokolliert wird.
-
-Möchtest du, dass ich jetzt auch automatisch die Datei Abnahmen.md anlege (in Pixel1255PrivateLernTodo) mit einer Starter‑Vorlage, oder reicht dir die dokumentierte Regel hier im Leitfaden?
+**Leitsatz:** Evidence first. Safety first. Keine Annahme ohne Kennzeichnung. Keine Abnahme ohne Nachweis.
