@@ -1,0 +1,18 @@
+title: R02
+logsource:
+  product: windows
+  category: registry_event
+detection:
+  selection:
+    EventID: 13
+    TargetObject|contains: 'Run'
+    Details|contains: '.exe'
+  condition: selection
+fields:
+  - EventID
+  - TargetObject
+  - Details
+  - User
+falsepositives:
+  - Legitimate autorun entries
+level: medium
