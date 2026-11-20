@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo "=== AUDIT WELLE 3: LAB-FLAKE SKELETON ==="
-task_repo='/home/pixel1255/pixel-nixos'
+task_repo='/home/pixel1255/PiXeLOs'
 task_storage_mod="${task_repo}/modules/host/pixel-lab-storage.nix"
 
 # 1. Deklaratives Hostmodul auf Existenz prüfen

@@ -7,7 +7,7 @@
 {
   # --- Statische Steuerungs-Aliase ---
   environment.shellAliases = {
-    status-lab = "echo '=== KAPSEL-TRESOR ===' && lsblk /dev/sdb && echo '=== ACTIVE WORKSPACE GUESTS ===' && sudo virsh list --all";
+    status-lab = "echo '=== KAPSEL-TRESOR ===' && lsblk /dev/disk/by-id/ata-SanDisk_SSD_PLUS_120GB_183903802232 2>/dev/null || echo 'SanDisk aktuell abgeklemmt' && echo '=== ACTIVE WORKSPACE GUESTS ===' && sudo virsh list --all";
     logs-firewall = "sudo tail -f /var/log/opensnitchd.log | jq .";
     
     # --- Direkt-Starter Host (Monitor 2 - Mitte) ---

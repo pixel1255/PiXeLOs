@@ -33,15 +33,6 @@
     ../modules/host/pixel-vm-broker-hotspot.nix
   ];
 
-  fileSystems."/mnt/Ablage" = { # Deklariert den Mountpoint für die interne, sekundäre Datenfestplatte
-    device = "/dev/disk/by-uuid/9ceeac28-81cc-461e-928a-a4064ff0f8c8"; # Verweist auf die unveränderliche, physische UUID des ext4-Dateisystems
-    fsType = "ext4"; # Definiert das Dateisystem-Format als Standard Linux Extended 4
-    options = [ # Array spezifischer Mount-Optionen für systemd
-      "nofail" # Verhindert Boot-Abbrüche, falls die Festplatte beim Start physisch nicht erreichbar ist
-      "x-systemd.device-timeout=5s" # Begrenzt die Wartezeit beim Booten auf maximal 5 Sekunden, falls die Platte schläft
-    ];
-  };
-
   system.stateVersion = "24.11"; # Fixiert den Software-Zustand historischer Standardwerte (wichtig für interne NixOS-Upgrades)
   programs.firefox.enable = true;
 }
